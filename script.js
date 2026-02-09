@@ -1,5 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- SORTING NEWS (AUTO-SORT) ---
+    // Автоматичне сортування новин за датою (від нових до старих)
+    const newsGrid = document.getElementById('news-grid');
+    if (newsGrid) {
+        const cards = Array.from(newsGrid.children);
+        
+        cards.sort((a, b) => {
+            const dateA = new Date(a.getAttribute('data-date'));
+            const dateB = new Date(b.getAttribute('data-date'));
+            return dateB - dateA; // Спадаючий порядок (новіші перші)
+        });
+
+        // Очищаємо контейнер і додаємо відсортовані картки
+        newsGrid.innerHTML = '';
+        cards.forEach(card => newsGrid.appendChild(card));
+    }
+
     // --- NAVIGATION & BURGER ---
     const burger = document.getElementById('burger');
     const nav = document.getElementById('nav-list');
@@ -43,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- SCROLL ANIMATIONS (Intersection Observer) ---
+    // --- SCROLL REVEAL ANIMATION ---
     const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-up');
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -84,10 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Закриття при кліку за межами модального вікна
     window.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal')) {
             e.target.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
     });
+
 });
