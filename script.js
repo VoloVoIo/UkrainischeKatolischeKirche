@@ -1,37 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- BURGER MENU ---
+    
+    // --- NAVIGATION & BURGER ---
     const burger = document.getElementById('burger');
     const nav = document.getElementById('nav-list');
-    const navLinks = document.querySelectorAll('.nav-list li');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const header = document.getElementById('header');
 
+    // Toggle Menu
     burger.addEventListener('click', () => {
         nav.classList.toggle('nav-active');
-
-        navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = '';
-            } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-            }
-        });
-
         burger.classList.toggle('toggle');
+        
+        // Анімація ліній бургера
+        if(burger.classList.contains('toggle')) {
+            burger.children[0].style.transform = 'rotate(-45deg) translate(-5px, 6px)';
+            burger.children[1].style.opacity = '0';
+            burger.children[2].style.transform = 'rotate(45deg) translate(-5px, -6px)';
+        } else {
+            burger.children[0].style.transform = 'none';
+            burger.children[1].style.opacity = '1';
+            burger.children[2].style.transform = 'none';
+        }
     });
 
+    // Close menu when clicking a link
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             nav.classList.remove('nav-active');
-            navLinks.forEach(link => link.style.animation = '');
             burger.classList.remove('toggle');
+            burger.children[0].style.transform = 'none';
+            burger.children[1].style.opacity = '1';
+            burger.children[2].style.transform = 'none';
         });
     });
 
-    // --- MODAL WINDOWS (POP-UPS) ---
+    // Header Background on Scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // --- SCROLL ANIMATIONS (Intersection Observer) ---
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-up');
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Анімуємо лише раз
+            }
+        });
+    }, {
+        root: null,
+        threshold: 0.15, // Спрацьовує, коли видно 15% елемента
+        rootMargin: "0px"
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // --- MODAL WINDOWS ---
     const modalBtns = document.querySelectorAll('.btn-modal');
     const closeBtns = document.querySelectorAll('.close');
-    const modals = document.querySelectorAll('.modal');
 
-    // Відкрити модальне вікно
     modalBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -39,37 +72,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById(modalId);
             if(modal) {
                 modal.style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Заборонити прокрутку фону
+                document.body.style.overflow = 'hidden'; // Блокуємо скрол фону
             }
         });
     });
 
-    // Закрити при кліку на хрестик
     closeBtns.forEach(span => {
         span.addEventListener('click', () => {
             span.closest('.modal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Повернути прокрутку
+            document.body.style.overflow = 'auto';
         });
     });
 
-    // Закрити при кліку за межами вікна
     window.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal')) {
             e.target.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-    });
-
-    // Smooth Scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
     });
 });
