@@ -6,7 +6,7 @@
     <title>Українська Парафіяльна Громада в Аугсбурзі</title>
     <meta name="description" content="Українська греко-католицька громада в Аугсбурзі. Розклад богослужінь, новини, життя парафії. Ulmerstraße 199.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -38,15 +38,18 @@
     <section id="home" class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content reveal">
-            <span class="sub-title">Вітаємо вас</span>
-            <h1>Слава Ісусу Христу!</h1>
-            <p>Офіційний сайт Української Парафіяльної Громади<br>в місті Аугсбург</p>
+            <div class="hero-text-box">
+                <span class="sub-title">Вітаємо вас</span>
+                <h1>Слава Ісусу Христу!</h1>
+                <div class="divider"></div>
+                <p>Офіційний сайт Української Парафіяльної Громади<br>в місті Аугсбург</p>
+            </div>
             <div class="hero-buttons">
                 <a href="#schedule" class="btn btn-primary shimmer">Розклад Богослужінь</a>
                 <a href="#contact" class="btn btn-outline">Зв'язатися з нами</a>
             </div>
         </div>
-        </section>
+    </section>
 
     <section id="schedule" class="section bg-light">
         <div class="container">
@@ -83,9 +86,9 @@
     <section id="news" class="section">
         <div class="container">
             <h2 class="section-title reveal">Останні Новини</h2>
-            <div class="cards-grid">
+            <div class="cards-grid" id="news-grid">
                 
-                <article class="card reveal-up">
+                <article class="card reveal-up" data-date="2026-02-08">
                     <div class="card-img-container">
                         <img src="img/80Jahr.jpg" alt="Храмове свято" class="card-photo">
                     </div>
@@ -97,7 +100,7 @@
                     </div>
                 </article>
 
-                <article class="card reveal-up" style="transition-delay: 0.2s;">
+                <article class="card reveal-up" data-date="2026-02-12">
                     <div class="card-img-container icon-bg-orange">
                         <i class="fas fa-laptop-code card-placeholder-icon"></i>
                     </div>
@@ -109,7 +112,7 @@
                     </div>
                 </article>
 
-                <article class="card reveal-up" style="transition-delay: 0.4s;">
+                <article class="card reveal-up" data-date="2026-01-25">
                     <div class="card-img-container icon-bg-green">
                         <i class="fas fa-music card-placeholder-icon"></i>
                     </div>
