@@ -109,4 +109,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- LIGHTBOX (IMAGE ZOOM) ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    // Відкриття лайтбоксу при кліку на фото
+    galleryItems.forEach(item => {
+        item.addEventListener('click', function() {
+            lightbox.style.display = 'block';
+            lightboxImg.src = this.src; // Беремо src з натиснутого фото
+        });
+    });
+
+    // Закриття лайтбоксу
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+    }
+
+    // Закриття при кліку на фон лайтбоксу
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.style.display = 'none';
+            }
+        });
+    }
+
 });
