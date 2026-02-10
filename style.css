@@ -73,9 +73,18 @@ ul { list-style: none; }
 
 .header-container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
 
-.logo { display: flex; align-items: center; gap: 15px; }
-.logo-img { height: 55px; width: auto; }
-.logo-text { font-family: 'Merriweather', serif; font-weight: 700; color: var(--primary-color); font-size: 1.2rem; }
+.logo { display: flex; align-items: center; /* gap прибрано, бо нема тексту */ }
+
+/* ЗМІНЕНО: Логотип збільшено і зроблено більш акуратним */
+.logo-img { 
+    height: 65px; 
+    width: auto; 
+    border-radius: 50%; /* Робить лого круглим, якщо фото квадратне */
+    transition: transform 0.3s ease;
+}
+.logo:hover .logo-img { transform: scale(1.05); }
+
+.logo-text { display: none; } /* На всяк випадок ховаємо текст, якщо він залишився в html */
 
 .nav-list { display: flex; gap: 30px; }
 .nav-link {
@@ -88,7 +97,7 @@ ul { list-style: none; }
 .nav-link:hover { color: var(--primary-color); }
 .nav-link:hover::after { width: 100%; }
 
-/* --- HERO SECTION UPDATED --- */
+/* --- HERO SECTION --- */
 .hero {
     height: 100vh;
     background: url('img/Kirche.jpg') no-repeat center center/cover;
@@ -100,7 +109,6 @@ ul { list-style: none; }
 
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    /* Затемнення на 35%, щоб фото було видно, але текст читався краще */
     background: rgba(0, 0, 0, 0.35); 
 }
 
@@ -108,11 +116,10 @@ ul { list-style: none; }
     position: relative; z-index: 2; max-width: 900px; padding: 20px;
 }
 
-/* Новий блок для тексту з ефектом скла */
 .hero-text-box {
     padding: 40px;
-    background: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий */
-    backdrop-filter: blur(8px); /* Розмиття фону під текстом */
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
@@ -130,7 +137,7 @@ ul { list-style: none; }
     font-size: 3.8rem; 
     color: var(--white); 
     margin-bottom: 20px; 
-    font-weight: 900; /* Максимальна жирність */
+    font-weight: 900;
     text-shadow: 0 4px 15px rgba(0,0,0,0.4);
     line-height: 1.2;
 }
@@ -253,19 +260,18 @@ ul { list-style: none; }
     height: 450px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
 }
 
-/* --- MODALS FIXED (Scroll fix) --- */
+/* --- MODALS FIXED --- */
 .modal {
     display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
     background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
-    overflow-y: auto; /* Дозволяє скрол всієї сторінки, якщо модалка висока */
+    overflow-y: auto;
 }
 .modal-content {
     background-color: #fff; 
-    margin: 5% auto 50px auto; /* Відступ знизу, щоб можна було доскролити до кінця */
+    margin: 5% auto 50px auto;
     padding: 0; border-radius: var(--radius);
     width: 90%; max-width: 700px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.3);
     animation: modalSlideIn 0.4s ease;
-    /* overflow: hidden; - ВИДАЛЕНО, це блокувало скрол */
 }
 @keyframes modalSlideIn { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
 
