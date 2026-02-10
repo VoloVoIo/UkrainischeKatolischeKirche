@@ -2,77 +2,176 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Datenschutzerklärung - Ukrainische Gemeinde Augsburg</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <title>Datenschutzerklärung - Ukrainische Gemeinde Augsburg</title>
     <style>
-        .legal-page { padding: 120px 20px; max-width: 800px; margin: 0 auto; font-size: 0.95rem; }
-        .legal-page h1 { color: #0057B8; margin-bottom: 20px; }
-        .legal-page h2 { margin-top: 30px; margin-bottom: 15px; font-size: 1.3rem; color: #333; border-bottom: 2px solid #eee; display: inline-block; padding-bottom: 5px; }
-        .legal-page h3 { margin-top: 20px; font-size: 1.1rem; color: #555; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #0057B8; text-decoration: none; font-weight: bold; background: #f0f7ff; padding: 5px 15px; border-radius: 20px; }
-        .back-link:hover { background: #e0efff; }
+        :root {
+            --primary-color: #0057B8;
+            --text-color: #333;
+            --bg-color: #fff;
+            --light-bg: #f9f9f9;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+        }
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        nav {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin: 0 15px;
+            font-weight: 500;
+        }
+        nav a:hover, nav a.active {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        h1 { color: var(--primary-color); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 { font-size: 1.3rem; margin-top: 35px; color: #222; border-left: 4px solid var(--primary-color); padding-left: 10px; }
+        h3 { font-size: 1.1rem; margin-top: 25px; color: #444; }
+        p, ul { margin-bottom: 15px; }
+        ul { padding-left: 20px; }
+        a { color: var(--primary-color); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
-    <div class="legal-page">
-        <a href="index.html" class="back-link">← Zurück / Назад</a>
-        <h1>Datenschutzerklärung</h1>
 
-        <h2>1. Datenschutz auf einen Blick</h2>
-        <h3>Allgemeine Hinweise</h3>
-        <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+<header>
+    <nav>
+        <a href="index.html">Startseite</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html" class="active">Datenschutz</a>
+    </nav>
+</header>
 
-        <h3>Datenerfassung auf dieser Website</h3>
-        <p><strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong><br>
-        Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.</p>
-        <p><strong>Wie erfassen wir Ihre Daten?</strong><br>
-        Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen (z. B. per E-Mail). Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs).</p>
+<main>
+    <h1>Datenschutzerklärung</h1>
 
-        <h2>2. Hosting</h2>
-        <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
-        <h3>GitHub Pages</h3>
-        <p>Anbieter ist die GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA (nachfolgend GitHub).</p>
-        <p>GitHub erfasst Ihre IP-Adresse, um die Auslieferung der Website an Ihren Browser zu gewährleisten und aus Sicherheitsgründen (Server-Log-Files). Details entnehmen Sie der Datenschutzerklärung von GitHub: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-privacy-statement" target="_blank">https://docs.github.com/de/site-policy/privacy-policies/github-privacy-statement</a>.</p>
+    <h2>1. Datenschutz auf einen Blick</h2>
+    <h3>Allgemeine Hinweise</h3>
+    <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+    
+    <h3>Datenerfassung auf dieser Website</h3>
+    <ul>
+        <li><strong>Wer ist verantwortlich?</strong> Die Datenverarbeitung erfolgt durch den Websitebetreiber (Kontaktdaten siehe unten).</li>
+        <li><strong>Wie werden Daten erfasst?</strong> Zum einen automatisch durch unsere IT-Systeme (z. B. technische Protokolldaten beim Aufruf der Seite via GitHub Pages). Zum anderen, wenn Sie uns diese mitteilen, z. B. per E-Mail.</li>
+        <li><strong>Wofür nutzen wir die Daten?</strong> Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Kontaktdaten nutzen wir nur zur Beantwortung Ihrer Anfragen.</li>
+    </ul>
 
-        <h2>3. Allgemeine Hinweise und Pflichtinformationen</h2>
-        <h3>Datenschutz</h3>
-        <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
-
-        <h3>Hinweis zur verantwortlichen Stelle</h3>
-        <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
-        <p>Volodymyr Volosetskyy<br>
+    <h2>2. Allgemeine Hinweise und Pflichtinformationen</h2>
+    <h3>Verantwortliche Stelle</h3>
+    <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+    <p>
+        <strong>Pfarreiengemeinschaft Kriegshaber</strong><br>
+        (Ukrainische Gemeinde Augsburg)<br>
+        Ulmer Str. 63, 86156 Augsburg<br>
+    </p>
+    <p>
+        <strong>Kontakt für Datenschutzanfragen:</strong><br>
+        Volodymyr Volosetskyy<br>
         Ulmer Str. 199, 86156 Augsburg<br>
-        E-Mail: volosetskyy.volodymyr@gmail.com</p>
+        Telefon: +49 178 518 3710<br>
+        E-Mail: volosetskyy.volodymyr@gmail.com
+    </p>
 
-        <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
-        <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+    <h3>Datenschutzbeauftragter</h3>
+    <p>Ein Datenschutzbeauftragter ist für unsere Organisation gesetzlich nicht vorgeschrieben und wurde nicht benannt.</p>
 
-        <h3>Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
-        <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde zu.</p>
+    <h3>Datensicherheit (SSL- bzw. TLS-Verschlüsselung)</h3>
+    <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://“ auf „https://“ wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
 
-        <h2>4. Datenerfassung auf dieser Website</h2>
-        <h3>Server-Log-Dateien</h3>
-        <p>Der Provider der Seiten (GitHub) erhebt und speichert automatisch Informationen in sogenannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind:</p>
-        <ul>
-            <li>Browsertyp und Browserversion</li>
-            <li>Verwendetes Betriebssystem</li>
-            <li>Referrer URL</li>
-            <li>Hostname des zugreifenden Rechners</li>
-            <li>Uhrzeit der Serveranfrage</li>
-            <li>IP-Adresse</li>
-        </ul>
-        <p>Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der fehlerfreien Darstellung und Optimierung der Website).</p>
+    <h2>3. Datenerfassung auf dieser Website</h2>
 
-        <h3>Anfrage per E-Mail oder Telefon</h3>
-        <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+    <h3>Hosting bei GitHub Pages</h3>
+    <p>Wir hosten unsere Website bei <strong>GitHub Inc.</strong> (88 Colin P Kelly Jr St, San Francisco, CA 94107, USA).<br>
+    Wenn Sie unsere Website besuchen, erfasst GitHub automatisch Log-Files (Server-Protokolldaten). Dazu gehören u. a.:</p>
+    <ul>
+        <li>IP-Adresse (ggf. anonymisiert)</li>
+        <li>Browsertyp und Browserversion</li>
+        <li>Verwendetes Betriebssystem</li>
+        <li>Referrer URL (die zuvor besuchte Seite)</li>
+        <li>Uhrzeit der Serveranfrage</li>
+    </ul>
+    <p><strong>Rechtsgrundlage:</strong> Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an der möglichst zuverlässigen Darstellung, der Sicherheit und der Optimierung unserer Website.</p>
+    <p><strong>Datenübermittlung in die USA:</strong> GitHub ist ein US-Unternehmen. Die Datenübertragung in die USA stützt sich auf die Standardvertragsklauseln der EU-Kommission oder vergleichbare Garantien, um ein angemessenes Datenschutzniveau zu gewährleisten.</p>
+    <p>Weitere Informationen finden Sie in der Datenschutzerklärung von GitHub ("GitHub Privacy Statement").</p>
 
-        <h2>5. Plugins und Tools</h2>
-        <h3>Google Maps</h3>
-        <p>Diese Seite nutzt den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited („Google“), Gordon House, Barrow Street, Dublin 4, Irland.</p>
-        <p>Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung.</p>
-        <p>Die Nutzung von Google Maps erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote und an einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar.</p>
-        <p>Mehr Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy?hl=de" target="_blank">https://policies.google.com/privacy?hl=de</a>.</p>
-    </div>
+    <h3>Cookies und Tracking</h3>
+    <p>Wir als Websitebetreiber setzen <strong>keine eigenen Cookies</strong> und verwenden <strong>keine Analyse- oder Tracking-Tools</strong> (wie z. B. Google Analytics).</p>
+
+    <h3>Kontaktaufnahme (E-Mail, Telefon)</h3>
+    <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage, Kontaktdaten) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+    <p><strong>Rechtsgrundlage:</strong> Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO).</p>
+    <p><strong>Speicherdauer:</strong> Die von Ihnen an uns übersandten Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen – insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt.</p>
+
+    <h2>4. Soziale Medien und Externe Dienste</h2>
+    
+    <h3>Keine Social-Media-Plugins</h3>
+    <p>Wir verwenden auf unserer Website keine Social-Media-Plugins (kein direkter Code von Facebook oder Instagram), sondern lediglich <strong>einfache Verlinkungen</strong>. Wenn Sie die Website besuchen, werden keine Daten an Social-Media-Plattformen gesendet. Eine Datenübertragung findet erst statt, wenn Sie aktiv auf den entsprechenden Link klicken und zur jeweiligen Plattform weitergeleitet werden.</p>
+
+    <h3>Google Maps (als externer Link)</h3>
+    <p>Wir binden Google Maps nicht direkt auf der Website ein, sondern stellen lediglich einen Link ("In Google Maps öffnen") zur Verfügung. Wenn Sie diesen Link anklicken, verlassen Sie unsere Website und werden zu Google Maps weitergeleitet. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
+    <p>Erst durch das Anklicken des Links und die Nutzung von Google Maps werden Daten (z. B. Ihre IP-Adresse und Standortdaten) an Google übertragen. Wir haben keinen Einfluss auf diese Datenverarbeitung. Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von Google.</p>
+
+    <h3>WhatsApp / Messenger Links</h3>
+    <p>Soweit wir Links zu Messenger-Diensten (z. B. WhatsApp) bereitstellen, erfolgt eine Datenübertragung an den jeweiligen Anbieter (z. B. Meta Platforms) erst dann, wenn Sie den Link anklicken. Beachten Sie die Datenschutzbestimmungen der jeweiligen Anbieter.</p>
+
+    <h2>5. Ihre Rechte als Betroffener</h2>
+    <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf:</p>
+    <ul>
+        <li><strong>Auskunft</strong> über Ihre gespeicherten personenbezogenen Daten (Art. 15 DSGVO).</li>
+        <li><strong>Berichtigung</strong> unrichtiger Daten (Art. 16 DSGVO).</li>
+        <li><strong>Löschung</strong> Ihrer Daten (Art. 17 DSGVO).</li>
+        <li><strong>Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO).</li>
+        <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO).</li>
+        <li><strong>Widerspruch</strong> gegen die Verarbeitung (Art. 21 DSGVO), sofern die Verarbeitung auf Art. 6 Abs. 1 lit. e oder f DSGVO beruht.</li>
+        <li><strong>Widerruf</strong> Ihrer Einwilligung (Art. 7 Abs. 3 DSGVO).</li>
+    </ul>
+    <p>Möchten Sie von Ihren Rechten Gebrauch machen, genügt eine formlose E-Mail an die oben genannte Kontaktadresse.</p>
+
+    <h3>Beschwerderecht bei der Aufsichtsbehörde</h3>
+    <p>Im Falle von Verstößen gegen die DSGVO steht Ihnen ein Beschwerderecht bei einer Aufsichtsbehörde zu.</p>
+
+</main>
+
+<footer>
+    <p>Stand: 10. Februar 2026</p>
+</footer>
+
 </body>
 </html>
