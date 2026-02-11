@@ -6,13 +6,18 @@
     <title>Українська Греко-Католицька Церква в Аугсбурзі</title>
     <meta name="description" content="Офіційний сайт Української Греко-Католицької Церкви (УГКЦ) в Аугсбурзі. Розклад богослужінь, духовна підтримка українців у Німеччині, новини парафії та контакти громади.">
     
+    <meta property="og:image" content="img/apple-touch-icon.png">
+    <meta property="og:title" content="УГКЦ в Аугсбурзі">
+    
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    
     <link rel="icon" type="image/png" href="img/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
     <link rel="shortcut icon" href="img/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="img/site.webmanifest">
 </head>
 <body>
 
@@ -428,7 +433,7 @@
                         <div class="details">
                             <h4>Адреса церкви</h4>
                             <p>Ulmer Str. 199,<br>86156 Augsburg, Germany</p>
-                            <a href="https://goo.gl/maps/YOUR_LINK_HERE" target="_blank" class="small-link">Відкрити в Google Maps</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Ulmer+Str.+199,+86156+Augsburg" target="_blank" class="small-link">Відкрити в Google Maps</a>
                         </div>
                     </div>
 
@@ -479,8 +484,10 @@
     </footer>
     
     <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
+        <span class="lightbox-close">×</span>
+        <button class="lightbox-prev">&#10094;</button>
         <img class="lightbox-content" id="lightbox-img">
+        <button class="lightbox-next">&#10095;</button>
     </div>
 
     <script src="script.js"></script>
