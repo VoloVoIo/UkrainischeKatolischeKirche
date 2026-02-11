@@ -109,18 +109,79 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- LIGHTBOX (IMAGE ZOOM) ---
+    // --- LIGHTBOX (IMAGE ZOOM WITH NAVIGATION) ---
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxPrev = document.querySelector('.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-next');
+    
+    // Select all images that are meant to be in gallery
     const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    let currentGalleryImages = []; // Масив фото з поточного відкритого альбому
+    let currentIndex = 0; // Індекс поточного фото
+
+    // Функція оновлення зображення в лайтбоксі
+    function updateLightboxImage() {
+        if (currentGalleryImages.length > 0) {
+            lightboxImg.src = currentGalleryImages[currentIndex].src;
+        }
+    }
 
     // Відкриття лайтбоксу при кліку на фото
     galleryItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation(); // Щоб не спрацьовували інші кліки
             lightbox.style.display = 'block';
-            lightboxImg.src = this.src; // Беремо src з натиснутого фото
+            
+            // 1. Знаходимо батьківський контейнер галереї (щоб гортати тільки цей альбом)
+            const parentGallery = this.closest('.gallery-grid');
+            
+            if (parentGallery) {
+                // 2. Збираємо всі фото тільки з цього блоку
+                currentGalleryImages = Array.from(parentGallery.querySelectorAll('.gallery-item'));
+                // 3. Знаходимо індекс натиснутого фото
+                currentIndex = currentGalleryImages.indexOf(this);
+            } else {
+                // Якщо раптом фото не в гріді, показуємо тільки його
+                currentGalleryImages = [this];
+                currentIndex = 0;
+            }
+
+            updateLightboxImage();
         });
+    });
+
+    // Навігація: Наступне фото
+    function showNextImage() {
+        currentIndex++;
+        if (currentIndex >= currentGalleryImages.length) {
+            currentIndex = 0; // Зациклюємо по колу
+        }
+        updateLightboxImage();
+    }
+
+    // Навігація: Попереднє фото
+    function showPrevImage() {
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = currentGalleryImages.length - 1; // Йдемо в кінець
+        }
+        updateLightboxImage();
+    }
+
+    // Події кнопок
+    if (lightboxNext) lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); showNextImage(); });
+    if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
+
+    // Керування клавіатурою (стрілки)
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.style.display === 'block') {
+            if (e.key === 'ArrowRight') showNextImage();
+            if (e.key === 'ArrowLeft') showPrevImage();
+            if (e.key === 'Escape') lightbox.style.display = 'none';
+        }
     });
 
     // Закриття лайтбоксу
@@ -130,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Закриття при кліку на фон лайтбоксу
+    // Закриття при кліку на фон (але не на картинку чи стрілки)
     if (lightbox) {
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
