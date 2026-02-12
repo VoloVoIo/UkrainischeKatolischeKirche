@@ -1,89 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /*
-    -----------------------------------------------------------------------
-    ЯК ПІДКЛЮЧИТИ GOOGLE ТАБЛИЦЮ В МАЙБУТНЬОМУ:
-    
-    1. Створіть Google Таблицю з такими заголовками (перший рядок):
-       date | title | short_text | full_text | image_url | icon_class | modal_bg_color
-       
-       Опис колонок:
-       - date: формат РРРР-ММ-ДД (наприклад, 2026-02-08)
-       - title: Заголовок новини
-       - short_text: Короткий опис для картки
-       - full_text: Повний HTML текст для модального вікна (можна з тегами <p>, <ul>, <strong>)
-       - image_url: Посилання на фото (наприклад, img/photo.jpg) або залиште пустим, якщо є іконка
-       - icon_class: Клас іконки (наприклад, fas fa-laptop-code), якщо немає фото
-       - modal_bg_color: Колір фону для іконки (наприклад, icon-bg-orange), якщо немає фото
-
-    2. Натисніть "Файл" -> "Поділитися" -> "Опублікувати в інтернеті".
-    3. Виберіть "Весь документ" та формат "Кома-розділювач (CSV)".
-    4. Скопіюйте отримане посилання і вставте його нижче у змінну googleSheetUrl.
-    -----------------------------------------------------------------------
+    /* НАЛАШТУВАННЯ GOOGLE ТАБЛИЦІ
+       Вставлено твоє посилання на CSV.
     */
-    
-    const googleSheetUrl = ""; // Вставте сюди посилання CSV у майбутньому
-
-    // ВАШІ ПОТОЧНІ НОВИНИ (ХАРДКОД, ПРАЦЮЄ ЯКЩО НЕМАЄ ТАБЛИЦІ)
-    const localNewsData = [
-        {
-            date: "2026-02-08",
-            title: "Храмове свято та візит Владики",
-            short_text: "Наша парафія урочисто відсвяткувала свій 80-річний ювілей. Дізнайтеся, як пройшло храмове свято та візит почесних гостей.",
-            full_text: `
-                <p><strong>Дорогі парафіяни та гості!</strong></p>
-                <p>8 лютого наша громада урочисто відзначила визначну дату — <strong>80-річчя заснування парафії бл. свщмч. Петра Вергуна.</strong> Щиро дякуємо усім, хто розділив з нами радість молитви в цей історичний день.</p>
-                <div class="info-box">
-                    <h4><i class="far fa-calendar-check"></i> Свято відбулося 8 лютого</h4>
-                    <p>Урочиста <strong>Архієрейська Божественна Літургія</strong> стала центром нашого ювілею.</p>
-                </div>
-                <p>Богослужіння очолили почесні гості:</p>
-                <ul class="check-list">
-                    <li>Владика Богдан Дзюрах (Апостольський екзарх)</li>
-                    <li>Єпископ Бертрам Майєр (Єпископ Аугсбурзький)</li>
-                </ul>`,
-            image_url: "img/80Jahr.jpg",
-            icon_class: "",
-            modal_bg_color: ""
-        },
-        {
-            date: "2026-02-12",
-            title: "Запуск веб-сайту парафії",
-            short_text: "Цей сайт був створений учасником молодіжної спільноти як подарунок для всієї нашої парафії.",
-            full_text: `
-                <p>В честь 80-річчя української церковної громади в Аугсбурзі ми запустили офіційний веб-сайт.</p>
-                <p>Цей ресурс був створений учасником молодіжної спільноти як щирий подарунок для всієї парафії, щоб кожен міг легко знайти потрібну інформацію.</p>
-                <h4>Що тепер доступно онлайн?</h4>
-                <ul class="check-list">
-                    <li>Актуальний розклад богослужінь.</li>
-                    <li>Останні новини та анонси подій.</li>
-                    <li>Інформація про катехизацію, молодь та волонтерство.</li>
-                    <li>Контакти та мапа доїзду.</li>
-                </ul>`,
-            image_url: "",
-            icon_class: "fas fa-laptop-code",
-            modal_bg_color: "icon-bg-orange"
-        },
-        {
-            date: "2026-02-02",
-            title: "Свято Стрітення ГНІХ",
-            short_text: "Бажаємо щоб світло Христове світило і зігрівало усіх, особливо там де зараз найхолодніше і найтемніше!",
-            full_text: `
-                <p><strong>Христос посеред нас! І є, і буде!</strong></p>
-                <p>Сьогодні ми святкуємо Стрітення Господа нашого Ісуса Христа. Це свято зустрічі людини з Богом, Старого Завіту з Новим. У цей день Пречиста Діва Марія та Йосиф принесли маленького Ісуса до Єрусалимського храму, де їх зустрів праведний старець Симеон.</p>
-                <div class="info-box">
-                    <p>Бажаємо, щоб світло Христове світило і зігрівало усіх, особливо там, де зараз найхолодніше і найтемніше!</p>
-                </div>
-                <p>За традицією, у цей день в церкві освячують свічки — "громиці". Нехай ця освячена свічка стане символом світла нашої віри, яке розганяє темряву гріха та зневіри.</p>`,
-            image_url: "img/stritenya.jpg",
-            icon_class: "",
-            modal_bg_color: ""
-        }
-    ];
+    const googleSheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT1yNB7bk-0nLbM5Mice_LAbKgksm4PkAYiVgOHNlmBqUaYYbvsolEC7V2wE5raFVb9ZlmWCFSHBu67/pub?output=csv";
 
     // --- ФУНКЦІЇ ДЛЯ РОБОТИ З НОВИНАМИ ---
 
     function formatDate(dateString) {
+        if (!dateString) return '';
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('uk-UA', options);
     }
@@ -91,16 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function createCardHTML(item, index) {
         // Визначаємо, чи показувати картинку чи іконку
         let imgContainerHTML = '';
+        // Перевіряємо чи є посилання на картинку
         if (item.image_url && item.image_url.trim() !== "") {
             imgContainerHTML = `
                 <div class="card-img-container">
                     <img src="${item.image_url}" alt="${item.title}" class="card-photo">
                 </div>`;
         } else {
+            // Якщо картинки немає, використовуємо іконку
             const bgClass = item.modal_bg_color || 'icon-bg-blue';
+            const iconClass = item.icon_class || 'fas fa-newspaper'; // стандартна іконка якщо нічого не вказано
             imgContainerHTML = `
                 <div class="card-img-container ${bgClass}">
-                    <i class="${item.icon_class} card-placeholder-icon"></i>
+                    <i class="${iconClass} card-placeholder-icon"></i>
                 </div>`;
         }
 
@@ -118,27 +46,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderNews(data) {
-        // Сортуємо: найновіші перші
+        // Сортування: найновіші перші (за датою)
         data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         const homeGrid = document.getElementById('news-grid-home');
         const archiveGrid = document.getElementById('news-grid-archive');
 
-        // Якщо ми на головній сторінці
+        // Якщо ми на головній сторінці - показуємо 3 останні
         if (homeGrid) {
             homeGrid.innerHTML = '';
-            // Беремо тільки перші 3 новини
             const latestNews = data.slice(0, 3);
             latestNews.forEach((item, index) => {
+                // Важливо: передаємо оригінальний індекс з відсортованого масиву latestNews
                 homeGrid.innerHTML += createCardHTML(item, index);
             });
             setupDynamicModal(latestNews);
         }
 
-        // Якщо ми на сторінці архіву
+        // Якщо ми на сторінці архіву - показуємо всі
         if (archiveGrid) {
             archiveGrid.innerHTML = '';
-            // Беремо всі новини
             data.forEach((item, index) => {
                 archiveGrid.innerHTML += createCardHTML(item, index);
             });
@@ -153,50 +80,44 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('modal-news-dynamic');
         if (!modal) return;
 
-        const btns = document.querySelectorAll('.btn-dynamic-modal');
-        const closeBtn = modal.querySelector('.close');
-        
-        // Елементи всередині модалки
-        const mTitle = document.getElementById('dynamic-news-title');
-        const mImgContainer = document.getElementById('dynamic-news-img-container');
-        const mDate = document.getElementById('dynamic-news-date');
-        const mContent = document.getElementById('dynamic-news-content');
-
-        btns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        // Використовуємо делегування подій, бо кнопки створюються динамічно
+        document.body.addEventListener('click', function(e) {
+            if (e.target.closest('.btn-dynamic-modal')) {
                 e.preventDefault();
-                // Знаходимо індекс новини з батьківського елемента article
+                const btn = e.target.closest('.btn-dynamic-modal');
                 const card = btn.closest('.card');
-                const index = card.getAttribute('data-index'); // Це індекс у відсортованому масиві data, що ми передали
-                
-                // Важливо: оскільки ми передали відрізаний масив (latestNews) на головній, індекс буде 0,1,2
-                // Тому ми беремо об'єкт з data по цьому індексу
-                const item = data[index]; 
+                const index = card.getAttribute('data-index');
+                const item = data[index];
 
                 if (item) {
+                    const mTitle = document.getElementById('dynamic-news-title');
+                    const mImgContainer = document.getElementById('dynamic-news-img-container');
+                    const mDate = document.getElementById('dynamic-news-date');
+                    const mContent = document.getElementById('dynamic-news-content');
+
                     mTitle.textContent = item.title;
                     mDate.textContent = formatDate(item.date);
                     mContent.innerHTML = item.full_text;
 
-                    // Картинка або іконка в модалці
                     if (item.image_url && item.image_url.trim() !== "") {
                         mImgContainer.innerHTML = `<img src="${item.image_url}" alt="${item.title}" class="modal-hero-img">`;
                     } else {
-                        // Якщо іконка - робимо гарний фон замість фото
                         const bgClass = item.modal_bg_color || 'icon-bg-blue';
+                        const iconClass = item.icon_class || 'fas fa-newspaper';
                         mImgContainer.innerHTML = `
                             <div style="height: 200px; display: flex; align-items: center; justify-content: center;" class="${bgClass}">
-                                <i class="${item.icon_class}" style="font-size: 5rem; color: var(--primary-color);"></i>
+                                <i class="${iconClass}" style="font-size: 5rem; color: var(--primary-color);"></i>
                             </div>`;
                     }
 
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
                 }
-            });
+            }
         });
 
-        // Закриття модалки
+        // Закриття
+        const closeBtn = modal.querySelector('.close');
         if(closeBtn) {
             closeBtn.addEventListener('click', () => {
                 modal.style.display = 'none';
@@ -212,45 +133,85 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Parse CSV helper
-    function csvToJSON(csv) {
-        const lines = csv.split("\n");
-        const result = [];
-        const headers = lines[0].split(",").map(h => h.trim());
+    // --- CSV PARSER (Розумний парсер для таблиць з комами в тексті) ---
+    function parseCSV(text) {
+        const rows = [];
+        let currentRow = [];
+        let currentCell = '';
+        let inQuotes = false;
 
-        for (let i = 1; i < lines.length; i++) {
-            if (!lines[i]) continue;
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i];
+            const nextChar = text[i + 1];
+
+            // Обробка лапок
+            if (char === '"') {
+                if (inQuotes && nextChar === '"') {
+                    currentCell += '"'; // Подвійна лапка всередині тексту
+                    i++;
+                } else {
+                    inQuotes = !inQuotes;
+                }
+            } 
+            // Обробка коми (розділювач), якщо ми не в лапках
+            else if (char === ',' && !inQuotes) {
+                currentRow.push(currentCell.trim());
+                currentCell = '';
+            } 
+            // Обробка нового рядка
+            else if ((char === '\r' || char === '\n') && !inQuotes) {
+                if (currentCell || currentRow.length > 0) {
+                    currentRow.push(currentCell.trim());
+                    if (currentRow.length > 1) rows.push(currentRow); // Ігноруємо пусті рядки
+                }
+                currentRow = [];
+                currentCell = '';
+                if (char === '\r' && nextChar === '\n') i++;
+            } 
+            else {
+                currentCell += char;
+            }
+        }
+        // Додаємо останній рядок
+        if (currentCell || currentRow.length > 0) {
+            currentRow.push(currentCell.trim());
+            if (currentRow.length > 1) rows.push(currentRow);
+        }
+
+        // Перетворення масиву рядків в масив об'єктів
+        const headers = rows[0]; // Перший рядок - заголовки
+        const result = [];
+
+        for (let i = 1; i < rows.length; i++) {
+            const row = rows[i];
             const obj = {};
-            const currentline = lines[i].split(","); // Простий спліт, краще використовувати бібліотеку для складних CSV
-            
-            // Якщо CSV складний (з комами в тексті), це простий парсер може зламатися.
-            // Для надійності краще використовувати бібліотеку типу PapaParse, але поки простий варіант:
-            headers.forEach((header, j) => {
-                obj[header] = currentline[j] ? currentline[j].trim() : "";
+            // Безпечно мапимо дані, навіть якщо рядки неповні
+            headers.forEach((header, index) => {
+                obj[header.trim()] = row[index] || "";
             });
             result.push(obj);
         }
         return result;
     }
 
-    // INIT NEWS
+    // ЗАПУСК: Завантаження новин
     if (googleSheetUrl) {
         fetch(googleSheetUrl)
             .then(response => response.text())
             .then(csvText => {
-                const sheetData = csvToJSON(csvText);
+                const sheetData = parseCSV(csvText);
                 renderNews(sheetData);
             })
             .catch(error => {
-                console.error("Error fetching Google Sheet, using local data:", error);
-                renderNews(localNewsData);
+                console.error("Помилка завантаження таблиці:", error);
+                // Якщо помилка, нічого не показуємо або можна розкоментувати старі дані як резерв
             });
-    } else {
-        renderNews(localNewsData);
     }
 
 
-    // --- NAVIGATION & BURGER (Залишив як було) ---
+    // --- НИЖЧЕ СТАНДАРТНИЙ КОД САЙТУ (БУРГЕР, АНІМАЦІЇ, ГАЛЕРЕЯ) ---
+
+    // BURGER MENU
     const burger = document.getElementById('burger');
     const nav = document.getElementById('nav-list');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -278,9 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if(nav.classList.contains('nav-active')){
                 nav.classList.remove('nav-active');
                 burger.classList.remove('toggle');
-                burger.children[0].style.transform = 'none';
-                burger.children[1].style.opacity = '1';
-                burger.children[2].style.transform = 'none';
+                if(burger) {
+                    burger.children[0].style.transform = 'none';
+                    burger.children[1].style.opacity = '1';
+                    burger.children[2].style.transform = 'none';
+                }
             }
         });
     });
@@ -293,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- SCROLL REVEAL ANIMATION (Виніс в функцію для повторного виклику) ---
+    // SCROLL REVEAL ANIMATION
     function observeRevealElements() {
         const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-up');
         const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -310,13 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         revealElements.forEach(el => revealObserver.observe(el));
     }
-    
-    // Запускаємо анімацію при завантаженні
     observeRevealElements();
 
-    // --- STATIC MODAL WINDOWS (Для Громади) ---
+    // STATIC MODAL WINDOWS (COMMUNITY)
     const modalBtns = document.querySelectorAll('.btn-modal');
-    const closeBtns = document.querySelectorAll('.close:not(.dynamic-close)'); // виключаємо динамічне закриття, воно оброблено вище
+    const closeBtns = document.querySelectorAll('.close:not(.dynamic-close)');
 
     modalBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -340,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- LIGHTBOX ---
+    // LIGHTBOX
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
@@ -409,5 +370,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
 });
