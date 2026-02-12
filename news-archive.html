@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архів Новин - УГКЦ в Аугсбурзі</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="icon" type="image/png" href="img/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+
+    <header class="header" id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="img/UkPGaugsburg_logo.jpg" alt="Логотип УГКЦ Аугсбург" class="logo-img">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list" id="nav-list">
+                    <li><a href="index.html#home" class="nav-link">Головна</a></li>
+                    <li><a href="index.html#schedule" class="nav-link">Розклад</a></li>
+                    <li><a href="index.html#news" class="nav-link" style="color: var(--primary-color);">Новини</a></li>
+                    <li><a href="index.html#community" class="nav-link">Громада</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Контакти</a></li>
+                </ul>
+                <div class="burger" id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="archive-header">
+        <div class="container">
+            <h1 class="archive-title">Архів Новин</h1>
+            <p>Історія подій нашої парафії</p>
+        </div>
+    </div>
+
+    <section class="section" style="padding-top: 50px;">
+        <div class="container">
+            <a href="index.html#news" class="btn-back"><i class="fas fa-arrow-left"></i> На головну</a>
+            
+            <div class="cards-grid" id="news-grid-archive" style="margin-top: 30px;">
+                </div>
+        </div>
+    </section>
+
+    <div id="modal-news-dynamic" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="dynamic-news-title"></h2>
+                <span class="close dynamic-close">×</span>
+            </div>
+            <div id="dynamic-news-img-container"></div>
+            <div class="modal-body">
+                <p class="news-date-full" id="dynamic-news-date"></p>
+                <div id="dynamic-news-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 Українська Парафіяльна Громада в Аугсбурзі.</p>
+                <div class="footer-links">
+                    <a href="impressum.html">Impressum</a>
+                    <span class="separator">|</span>
+                    <a href="datenschutz.html">Datenschutz</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
