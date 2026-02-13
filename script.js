@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* НАЛАШТУВАННЯ GOOGLE ТАБЛИЦІ
-       Вставлено твоє посилання на CSV.
-    */
+    /* НАЛАШТУВАННЯ GOOGLE ТАБЛИЦІ */
     const googleSheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT1yNB7bk-0nLbM5Mice_LAbKgksm4PkAYiVgOHNlmBqUaYYbvsolEC7V2wE5raFVb9ZlmWCFSHBu67/pub?output=csv";
 
     // --- ФУНКЦІЇ ДЛЯ РОБОТИ З НОВИНАМИ ---
@@ -14,18 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createCardHTML(item, index) {
-        // Визначаємо, чи показувати картинку чи іконку
         let imgContainerHTML = '';
-        // Перевіряємо чи є посилання на картинку
         if (item.image_url && item.image_url.trim() !== "") {
             imgContainerHTML = `
                 <div class="card-img-container">
                     <img src="${item.image_url}" alt="${item.title}" class="card-photo">
                 </div>`;
         } else {
-            // Якщо картинки немає, використовуємо іконку
             const bgClass = item.modal_bg_color || 'icon-bg-blue';
-            const iconClass = item.icon_class || 'fas fa-newspaper'; // стандартна іконка якщо нічого не вказано
+            const iconClass = item.icon_class || 'fas fa-newspaper'; 
             imgContainerHTML = `
                 <div class="card-img-container ${bgClass}">
                     <i class="${iconClass} card-placeholder-icon"></i>
@@ -46,24 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderNews(data) {
-        // Сортування: найновіші перші (за датою)
         data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         const homeGrid = document.getElementById('news-grid-home');
         const archiveGrid = document.getElementById('news-grid-archive');
 
-        // Якщо ми на головній сторінці - показуємо 3 останні
         if (homeGrid) {
             homeGrid.innerHTML = '';
             const latestNews = data.slice(0, 3);
             latestNews.forEach((item, index) => {
-                // Важливо: передаємо оригінальний індекс з відсортованого масиву latestNews
                 homeGrid.innerHTML += createCardHTML(item, index);
             });
             setupDynamicModal(latestNews);
         }
 
-        // Якщо ми на сторінці архіву - показуємо всі
         if (archiveGrid) {
             archiveGrid.innerHTML = '';
             data.forEach((item, index) => {
@@ -72,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             setupDynamicModal(data);
         }
         
-        // Перезапускаємо анімацію появи для нових елементів
         observeRevealElements();
     }
 
@@ -80,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('modal-news-dynamic');
         if (!modal) return;
 
-        // Використовуємо делегування подій, бо кнопки створюються динамічно
         document.body.addEventListener('click', function(e) {
             if (e.target.closest('.btn-dynamic-modal')) {
                 e.preventDefault();
@@ -116,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Закриття
         const closeBtn = modal.querySelector('.close');
         if(closeBtn) {
             closeBtn.addEventListener('click', () => {
@@ -133,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- CSV PARSER (Розумний парсер для таблиць з комами в тексті) ---
+    // --- CSV PARSER ---
     function parseCSV(text) {
         const rows = [];
         let currentRow = [];
@@ -144,25 +132,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const char = text[i];
             const nextChar = text[i + 1];
 
-            // Обробка лапок
             if (char === '"') {
                 if (inQuotes && nextChar === '"') {
-                    currentCell += '"'; // Подвійна лапка всередині тексту
+                    currentCell += '"'; 
                     i++;
                 } else {
                     inQuotes = !inQuotes;
                 }
             } 
-            // Обробка коми (розділювач), якщо ми не в лапках
             else if (char === ',' && !inQuotes) {
                 currentRow.push(currentCell.trim());
                 currentCell = '';
             } 
-            // Обробка нового рядка
             else if ((char === '\r' || char === '\n') && !inQuotes) {
                 if (currentCell || currentRow.length > 0) {
                     currentRow.push(currentCell.trim());
-                    if (currentRow.length > 1) rows.push(currentRow); // Ігноруємо пусті рядки
+                    if (currentRow.length > 1) rows.push(currentRow);
                 }
                 currentRow = [];
                 currentCell = '';
@@ -172,20 +157,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentCell += char;
             }
         }
-        // Додаємо останній рядок
         if (currentCell || currentRow.length > 0) {
             currentRow.push(currentCell.trim());
             if (currentRow.length > 1) rows.push(currentRow);
         }
 
-        // Перетворення масиву рядків в масив об'єктів
-        const headers = rows[0]; // Перший рядок - заголовки
+        const headers = rows[0]; 
         const result = [];
 
         for (let i = 1; i < rows.length; i++) {
             const row = rows[i];
             const obj = {};
-            // Безпечно мапимо дані, навіть якщо рядки неповні
             headers.forEach((header, index) => {
                 obj[header.trim()] = row[index] || "";
             });
@@ -194,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return result;
     }
 
-    // ЗАПУСК: Завантаження новин
     if (googleSheetUrl) {
         fetch(googleSheetUrl)
             .then(response => response.text())
@@ -204,14 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error("Помилка завантаження таблиці:", error);
-                // Якщо помилка, нічого не показуємо або можна розкоментувати старі дані як резерв
             });
     }
 
 
-    // --- НИЖЧЕ СТАНДАРТНИЙ КОД САЙТУ (БУРГЕР, АНІМАЦІЇ, ГАЛЕРЕЯ) ---
+    // --- STANDARD SITE CODE ---
 
-    // BURGER MENU
     const burger = document.getElementById('burger');
     const nav = document.getElementById('nav-list');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -256,7 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // SCROLL REVEAL ANIMATION
     function observeRevealElements() {
         const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-up');
         const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -275,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     observeRevealElements();
 
-    // STATIC MODAL WINDOWS (COMMUNITY)
     const modalBtns = document.querySelectorAll('.btn-modal');
     const closeBtns = document.querySelectorAll('.close:not(.dynamic-close)');
 
@@ -301,7 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // LIGHTBOX
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
@@ -369,7 +345,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 lightbox.style.display = 'none';
             }
         });
+    }
+});
 
-        
+/* --- LANGUAGE SWITCHER LOGIC --- */
+function changeLanguage(lang) {
+    var selectField = document.querySelector('.goog-te-combo');
+    if (selectField) {
+        selectField.value = lang; 
+        selectField.dispatchEvent(new Event('change'));
+    } else {
+        // Fallback for cookie method if select is hidden/not ready
+        // 'uk' is original, so for 'uk' we clear cookie or set to /uk/uk
+        // for 'de' we set /uk/de
+        var cookieVal = lang === 'de' ? '/uk/de' : '/uk/uk';
+        document.cookie = "googtrans=" + cookieVal + "; path=/; domain=" + window.location.hostname;
+        document.cookie = "googtrans=" + cookieVal + "; path=/";
+        window.location.reload();
+    }
+    
+    updateActiveLangBtn(lang);
+}
+
+function updateActiveLangBtn(lang) {
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));
+    const activeBtn = document.getElementById('btn-' + lang);
+    if(activeBtn) activeBtn.classList.add('active-lang');
+}
+
+// Check cookie on load to set active class
+window.addEventListener('load', function() {
+    let isGerman = document.cookie.includes('googtrans=/uk/de');
+    if(isGerman) {
+        updateActiveLangBtn('de');
+    } else {
+        updateActiveLangBtn('uk');
     }
 });
