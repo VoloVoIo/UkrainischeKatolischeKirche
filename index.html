@@ -33,12 +33,13 @@
                     <li><a href="index.html#news" class="nav-link">Новини</a></li>
                     <li><a href="index.html#community" class="nav-link">Громада</a></li>
                     <li><a href="index.html#contact" class="nav-link">Контакти</a></li>
+                    
+                    <li class="lang-switch-li">
+                        <a href="#" onclick="changeLanguage('uk'); return false;" class="lang-btn" id="btn-uk">UA</a>
+                        <span class="lang-sep">|</span>
+                        <a href="#" onclick="changeLanguage('de'); return false;" class="lang-btn" id="btn-de">DE</a>
+                    </li>
                 </ul>
-                <div class="language-switcher">
-                    <button onclick="changeLanguage('uk')" class="lang-btn">UA</button>
-                    <span class="lang-separator">|</span>
-                    <button onclick="changeLanguage('de')" class="lang-btn">DE</button>
-                </div>
                 <div class="burger" id="burger">
                     <div class="line1"></div>
                     <div class="line2"></div>
@@ -47,6 +48,8 @@
             </nav>
         </div>
     </header>
+
+    <div id="google_translate_element" style="display:none;"></div>
 
     <section id="home" class="hero">
         <div class="hero-overlay"></div>
@@ -401,28 +404,17 @@
         <button class="lightbox-next">❯</button>
     </div>
 
-    <script src="script.js"></script>
-
-    <div id="google_translate_element" style="display:none;"></div>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'uk',
-                includedLanguages: 'uk,de',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                pageLanguage: 'uk', 
+                includedLanguages: 'de,uk', 
                 autoDisplay: false
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script>
-        function changeLanguage(langCode) {
-            var selectField = document.querySelector("#google_translate_element select");
-            if (selectField) {
-                selectField.value = langCode;
-                selectField.dispatchEvent(new Event('change'));
-            }
-        }
-    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
