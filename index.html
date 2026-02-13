@@ -19,27 +19,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png" />
     <link rel="manifest" href="img/site.webmanifest">
 </head>
-    <div id="google_translate_element" style="display:none;"></div>
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'uk',
-            includedLanguages: 'uk,de',
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false
-        }, 'google_translate_element');
-    }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script>
-    function changeLanguage(langCode) {
-        var selectField = document.querySelector("#google_translate_element select");
-        if (selectField) {
-            selectField.value = langCode;
-            selectField.dispatchEvent(new Event('change'));
-        }
-    }
-</script>
 <body>
 
     <header class="header" id="header">
@@ -56,10 +35,10 @@
                     <li><a href="index.html#contact" class="nav-link">Контакти</a></li>
                 </ul>
                 <div class="language-switcher">
-    <button onclick="changeLanguage('uk')" class="lang-btn">UA</button>
-    <span class="lang-separator">|</span>
-    <button onclick="changeLanguage('de')" class="lang-btn">DE</button>
-</div>
+                    <button onclick="changeLanguage('uk')" class="lang-btn">UA</button>
+                    <span class="lang-separator">|</span>
+                    <button onclick="changeLanguage('de')" class="lang-btn">DE</button>
+                </div>
                 <div class="burger" id="burger">
                     <div class="line1"></div>
                     <div class="line2"></div>
@@ -423,5 +402,27 @@
     </div>
 
     <script src="script.js"></script>
+
+    <div id="google_translate_element" style="display:none;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'uk',
+                includedLanguages: 'uk,de',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        function changeLanguage(langCode) {
+            var selectField = document.querySelector("#google_translate_element select");
+            if (selectField) {
+                selectField.value = langCode;
+                selectField.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
 </body>
 </html>
