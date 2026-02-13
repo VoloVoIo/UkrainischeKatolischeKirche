@@ -23,6 +23,12 @@ body {
     overflow-x: hidden;
 }
 
+/* FIX GOOGLE TRANSLATE BANNER */
+body { top: 0 !important; }
+.goog-te-banner-frame { display: none !important; }
+.goog-tooltip { display: none !important; }
+.goog-te-gadget-icon { display: none !important; }
+
 h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: var(--text-dark); margin-bottom: 1rem; }
 a { text-decoration: none; color: inherit; transition: var(--transition); }
 ul { list-style: none; }
@@ -82,7 +88,7 @@ ul { list-style: none; }
 }
 .logo:hover .logo-img { transform: scale(1.05); }
 
-.nav-list { display: flex; gap: 30px; }
+.nav-list { display: flex; gap: 30px; align-items: center; }
 .nav-link {
     font-weight: 600; font-size: 0.95rem; position: relative; color: var(--text-dark);
 }
@@ -92,6 +98,27 @@ ul { list-style: none; }
 }
 .nav-link:hover { color: var(--primary-color); }
 .nav-link:hover::after { width: 100%; }
+
+/* --- LANGUAGE SWITCH STYLES --- */
+.lang-switch-li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 15px;
+    background: #f0f4f8;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+.lang-btn {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #8898aa;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.lang-btn:hover { color: var(--primary-color); }
+.lang-btn.active-lang { color: var(--primary-color); }
+.lang-sep { color: #cbd5e0; font-size: 0.9rem; }
 
 /* --- HERO SECTION --- */
 .hero {
@@ -402,7 +429,6 @@ ul { list-style: none; }
 
 /* --- RESPONSIVE & MOBILE MENU --- */
 .burger { display: none; cursor: pointer; z-index: 1001; }
-/* Змінив стиль ліній бургера на більш "жирні" і приємні */
 .burger div { 
     width: 32px; height: 4px; 
     background-color: var(--text-dark); 
@@ -437,6 +463,13 @@ ul { list-style: none; }
         display: block;
     }
 
+    /* Мова в мобільному меню */
+    .lang-switch-li {
+        margin-left: 0;
+        margin-top: 20px;
+        transform: scale(1.2); /* Робимо кнопки більшими для пальця */
+    }
+
     .burger { display: block; }
     .nav-active { transform: translateX(0%); }
     
@@ -444,40 +477,4 @@ ul { list-style: none; }
     .hero h1 { font-size: 2.2rem; }
     .section-title { font-size: 2rem; }
     .lightbox-content { width: 95%; }
-}
-
-
-/* --- СТИЛІ ДЛЯ ПЕРЕМИКАЧА МОВ --- */
-.language-switcher {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 20px;
-}
-
-.lang-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-color);
-    padding: 5px;
-    transition: color 0.3s ease;
-}
-
-.lang-btn:hover {
-    color: var(--primary-color);
-}
-
-.lang-separator {
-    margin: 0 5px;
-    color: #ccc;
-}
-
-/* --- ХОВАЄМО СИСТЕМНІ ЕЛЕМЕНТИ GOOGLE --- */
-body {
-    top: 0 !important;
-}
-.skiptranslate, #google_translate_element, .goog-te-spinner-pos {
-    display: none !important;
 }
