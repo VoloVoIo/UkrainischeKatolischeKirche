@@ -346,6 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Initialize Banner Killer immediately
+    forceRemoveGoogleBanner();
 });
 
 /* --- LANGUAGE SWITCHER LOGIC --- */
@@ -355,17 +358,53 @@ function changeLanguage(lang) {
         selectField.value = lang; 
         selectField.dispatchEvent(new Event('change'));
     } else {
-        // Fallback for cookie method if select is hidden/not ready
-        // 'uk' is original, so for 'uk' we clear cookie or set to /uk/uk
-        // for 'de' we set /uk/de
+        // Fallback
         var cookieVal = lang === 'de' ? '/uk/de' : '/uk/uk';
         document.cookie = "googtrans=" + cookieVal + "; path=/; domain=" + window.location.hostname;
         document.cookie = "googtrans=" + cookieVal + "; path=/";
         window.location.reload();
     }
-    
-    updateActiveLangBtn(lang);
 }
+
+/* --- GREETING TEXT & BANNER REMOVER OBSERVER --- */
+// Цей код стежить за змінами на сторінці в реальному часі
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        
+        // 1. Перевірка на "Grüß Gott"
+        // Google додає клас 'translated-ltr' до HTML тегу, коли перекладає
+        if (mutation.type === "attributes" && mutation.attributeName === "class") {
+            const isTranslated = document.documentElement.classList.contains('translated-ltr');
+            updateGreetingText(isTranslated);
+            
+            // Якщо перекладено - підсвічуємо DE, інакше UA
+            if(isTranslated) {
+                updateActiveLangBtn('de');
+            } else {
+                updateActiveLangBtn('uk');
+            }
+        }
+
+        // 2. Видалення відступу Google
+        if (document.body.style.top && document.body.style.top !== "0px") {
+            document.body.style.setProperty('top', '0px', 'important');
+            document.body.style.setProperty('position', 'static', 'important');
+        }
+    });
+});
+
+// Запускаємо спостерігача за тегом HTML
+observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+});
+
+// Запускаємо спостерігача за тегом BODY (щоб ловити style="top: 40px")
+observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ['style']
+});
+
 
 function updateActiveLangBtn(lang) {
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));
@@ -373,7 +412,6 @@ function updateActiveLangBtn(lang) {
     if(activeBtn) activeBtn.classList.add('active-lang');
 }
 
-/* --- GREETING TEXT SWITCHER (Grüß Gott Logic) --- */
 function updateGreetingText(isGerman) {
     const uaText = document.querySelector('.greeting-text-ua');
     const deText = document.querySelector('.greeting-text-de');
@@ -389,15 +427,26 @@ function updateGreetingText(isGerman) {
     }
 }
 
-// Check cookie on load to set active class AND greeting
+// Додаткова "груба" очистка банера за таймером (на випадок якщо observer не спрацює)
+function forceRemoveGoogleBanner() {
+    setInterval(() => {
+        const banners = document.querySelectorAll('.goog-te-banner-frame');
+        banners.forEach(banner => {
+            banner.style.display = 'none';
+            banner.style.height = '0';
+            banner.style.visibility = 'hidden';
+        });
+        if(document.body.style.top !== '0px') {
+             document.body.style.setProperty('top', '0px', 'important');
+             document.body.style.setProperty('position', 'static', 'important');
+        }
+    }, 1000);
+}
+
+// Перевірка при завантаженні (Initial Check)
 window.addEventListener('load', function() {
-    let isGerman = document.cookie.includes('googtrans=/uk/de');
-    
-    if(isGerman) {
-        updateActiveLangBtn('de');
-        updateGreetingText(true); // Switch to Grüß Gott
-    } else {
-        updateActiveLangBtn('uk');
-        updateGreetingText(false); // Switch to Слава Ісусу Христу
-    }
+    let isGerman = document.cookie.includes('googtrans=/uk/de') || document.documentElement.classList.contains('translated-ltr');
+    updateGreetingText(isGerman);
+    if(isGerman) updateActiveLangBtn('de');
+    forceRemoveGoogleBanner();
 });
