@@ -23,11 +23,18 @@ body {
     overflow-x: hidden;
 }
 
-/* FIX GOOGLE TRANSLATE BANNER */
-body { top: 0 !important; }
+/* FIX GOOGLE TRANSLATE BANNER (Оновлений код) */
+body { top: 0px !important; position: static !important; }
 .goog-te-banner-frame { display: none !important; }
+.goog-te-banner-frame.skiptranslate { display: none !important; }
+body > .skiptranslate { display: none; }
 .goog-tooltip { display: none !important; }
 .goog-te-gadget-icon { display: none !important; }
+
+/* Клас для заборони перекладу */
+.notranslate {
+    transform: translate(0px, 0px); /* іноді допомагає від зсувів */
+}
 
 h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: var(--text-dark); margin-bottom: 1rem; }
 a { text-decoration: none; color: inherit; transition: var(--transition); }
