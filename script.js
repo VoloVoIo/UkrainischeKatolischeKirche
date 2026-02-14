@@ -373,12 +373,31 @@ function updateActiveLangBtn(lang) {
     if(activeBtn) activeBtn.classList.add('active-lang');
 }
 
-// Check cookie on load to set active class
+/* --- GREETING TEXT SWITCHER (Grüß Gott Logic) --- */
+function updateGreetingText(isGerman) {
+    const uaText = document.querySelector('.greeting-text-ua');
+    const deText = document.querySelector('.greeting-text-de');
+
+    if (uaText && deText) {
+        if (isGerman) {
+            uaText.style.display = 'none';
+            deText.style.display = 'inline';
+        } else {
+            uaText.style.display = 'inline';
+            deText.style.display = 'none';
+        }
+    }
+}
+
+// Check cookie on load to set active class AND greeting
 window.addEventListener('load', function() {
     let isGerman = document.cookie.includes('googtrans=/uk/de');
+    
     if(isGerman) {
         updateActiveLangBtn('de');
+        updateGreetingText(true); // Switch to Grüß Gott
     } else {
         updateActiveLangBtn('uk');
+        updateGreetingText(false); // Switch to Слава Ісусу Христу
     }
 });
