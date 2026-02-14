@@ -21,19 +21,39 @@ body {
     color: var(--text-dark);
     background-color: #fff;
     overflow-x: hidden;
+    /* FIX FOR GOOGLE TRANSLATE SHIFT */
+    top: 0 !important;
+    position: static !important;
 }
 
-/* FIX GOOGLE TRANSLATE BANNER (Оновлений код) */
-body { top: 0px !important; position: static !important; }
-.goog-te-banner-frame { display: none !important; }
-.goog-te-banner-frame.skiptranslate { display: none !important; }
-body > .skiptranslate { display: none; }
-.goog-tooltip { display: none !important; }
-.goog-te-gadget-icon { display: none !important; }
+/* --- FIX GOOGLE TRANSLATE BANNER (AGGRESSIVE) --- */
+/* Приховуємо iframe банера */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+    height: 0 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+iframe.goog-te-banner-frame {
+    display: none !important;
+}
+/* Прибираємо зсув, який Google додає до body */
+body > .skiptranslate {
+    display: none !important;
+}
+.goog-tooltip {
+    display: none !important;
+}
+.goog-te-gadget-icon {
+    display: none !important;
+}
+#google_translate_element {
+    display: none !important; /* Сам віджет теж ховаємо, бо керуємо кнопками */
+}
 
-/* Клас для заборони перекладу */
+/* Клас для елементів, які НЕ треба перекладати */
 .notranslate {
-    transform: translate(0px, 0px); /* іноді допомагає від зсувів */
+    transform: translate(0px, 0px); 
 }
 
 h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: var(--text-dark); margin-bottom: 1rem; }
