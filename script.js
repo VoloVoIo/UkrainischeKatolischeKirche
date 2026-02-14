@@ -351,36 +351,47 @@ document.addEventListener('DOMContentLoaded', () => {
     forceRemoveGoogleBanner();
 });
 
-/* --- LANGUAGE SWITCHER LOGIC --- */
+/* --- LANGUAGE SWITCHER LOGIC (ВИПРАВЛЕНО 1 КЛІК) --- */
 function changeLanguage(lang) {
-    var selectField = document.querySelector('.goog-te-combo');
-    if (selectField) {
-        selectField.value = lang; 
-        selectField.dispatchEvent(new Event('change'));
+    // 1. Встановлення або видалення cookies
+    if (lang === 'uk') {
+        // Видаляємо cookies для повернення до оригіналу (всі варіанти шляхів)
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname;
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     } else {
-        // Fallback
-        var cookieVal = lang === 'de' ? '/uk/de' : '/uk/uk';
-        document.cookie = "googtrans=" + cookieVal + "; path=/; domain=" + window.location.hostname;
-        document.cookie = "googtrans=" + cookieVal + "; path=/";
-        window.location.reload();
+        // Встановлюємо німецьку
+        document.cookie = "googtrans=/uk/de; path=/; domain=" + window.location.hostname;
+        document.cookie = "googtrans=/uk/de; path=/";
     }
+
+    // 2. МИТТЄВЕ візуальне оновлення (не чекаючи перезавантаження)
+    updateActiveLangBtn(lang);
+    const isGerman = (lang === 'de');
+    updateGreetingText(isGerman);
+
+    // 3. Перезавантаження сторінки для застосування змін
+    // Невеликий тайм-аут дає час браузеру записати кукі
+    setTimeout(() => {
+        window.location.reload();
+    }, 100);
 }
 
 /* --- GREETING TEXT & BANNER REMOVER OBSERVER --- */
-// Цей код стежить за змінами на сторінці в реальному часі
 const observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
         
-        // 1. Перевірка на "Grüß Gott"
-        // Google додає клас 'translated-ltr' до HTML тегу, коли перекладає
+        // 1. Перевірка на "Grüß Gott" та стан кнопок
         if (mutation.type === "attributes" && mutation.attributeName === "class") {
             const isTranslated = document.documentElement.classList.contains('translated-ltr');
+            
+            // Якщо Google ще "тримає" клас, але ми натиснули UA - ігноруємо (бо скоро буде релоад)
+            // Але якщо це ініціалізація - оновлюємо.
             updateGreetingText(isTranslated);
             
-            // Якщо перекладено - підсвічуємо DE, інакше UA
             if(isTranslated) {
                 updateActiveLangBtn('de');
             } else {
+                // Якщо класу немає - це точно UA
                 updateActiveLangBtn('uk');
             }
         }
@@ -393,13 +404,11 @@ const observer = new MutationObserver(function(mutations) {
     });
 });
 
-// Запускаємо спостерігача за тегом HTML
 observer.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ['class']
 });
 
-// Запускаємо спостерігача за тегом BODY (щоб ловити style="top: 40px")
 observer.observe(document.body, {
     attributes: true,
     attributeFilter: ['style']
@@ -427,7 +436,6 @@ function updateGreetingText(isGerman) {
     }
 }
 
-// Додаткова "груба" очистка банера за таймером (на випадок якщо observer не спрацює)
 function forceRemoveGoogleBanner() {
     setInterval(() => {
         const banners = document.querySelectorAll('.goog-te-banner-frame');
@@ -445,8 +453,14 @@ function forceRemoveGoogleBanner() {
 
 // Перевірка при завантаженні (Initial Check)
 window.addEventListener('load', function() {
+    // Перевіряємо кукі або клас
     let isGerman = document.cookie.includes('googtrans=/uk/de') || document.documentElement.classList.contains('translated-ltr');
+    
     updateGreetingText(isGerman);
-    if(isGerman) updateActiveLangBtn('de');
+    if(isGerman) {
+        updateActiveLangBtn('de');
+    } else {
+        updateActiveLangBtn('uk');
+    }
     forceRemoveGoogleBanner();
 });
