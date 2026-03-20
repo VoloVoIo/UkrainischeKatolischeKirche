@@ -338,12 +338,26 @@ ul { list-style: none; }
 .details p { color: var(--text-light); margin-bottom: 5px; line-height: 1.4; }
 .details a { color: var(--primary-color); font-weight: 600; }
 
-.fb-bg { background: #1877F2; color: white; }
-.btn-facebook {
-    display: inline-block; background: #1877F2; color: white !important; font-size: 0.9rem;
-    padding: 8px 16px; border-radius: 20px; margin-top: 5px; text-decoration: none;
+/* Універсальна кнопка для соцмереж (Instagram, Facebook) */
+.btn-social {
+    display: inline-block; 
+    background: transparent; 
+    color: var(--primary-color) !important; 
+    border: 2px solid var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 8px 16px; 
+    border-radius: 20px; 
+    margin-top: 5px; 
+    text-decoration: none;
+    transition: var(--transition);
 }
-.btn-facebook:hover { background: #1465c8; }
+.btn-social:hover { 
+    background: var(--primary-color); 
+    color: var(--white) !important; 
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 87, 184, 0.2);
+}
 
 .map-container {
     height: 450px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
