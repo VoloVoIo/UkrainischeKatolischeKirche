@@ -189,8 +189,7 @@
             
             <div class="modal-body">
                 <p class="news-date-full" id="dynamic-news-date"></p>
-                <div id="dynamic-news-content">
-                    </div>
+                <div id="dynamic-news-content"></div>
             </div>
         </div>
     </div>
@@ -423,9 +422,11 @@
     
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close">×</span>
-        <button class="lightbox-prev">❮</button>
-        <img class="lightbox-content" id="lightbox-img">
-        <button class="lightbox-next">❯</button>
+        <div class="lightbox-wrapper">
+            <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+            <img class="lightbox-content" id="lightbox-img" src="">
+            <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
     </div>
 
     <script type="text/javascript">
