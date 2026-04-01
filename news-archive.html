@@ -56,6 +56,14 @@
         <div class="container">
             <a href="index.html#news" class="btn-back"><i class="fas fa-arrow-left"></i> На головну</a>
             
+            <div class="archive-timeline-container" id="archive-timeline-container" style="display: none;">
+                <div class="timeline-header">Швидкий пошук за датою</div>
+                <div class="timeline-slider-wrapper">
+                    <input type="range" class="timeline-slider" id="archive-date-slider" min="0" max="100" value="0" step="1">
+                </div>
+                <div id="timeline-current-date">Гортайте, щоб обрати дату</div>
+            </div>
+            
             <div class="cards-grid" id="news-grid-archive" style="margin-top: 30px;">
                 </div>
         </div>
@@ -73,6 +81,13 @@
                 <div id="dynamic-news-content"></div>
             </div>
         </div>
+    </div>
+    
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <button class="lightbox-prev">&#10094;</button>
+        <button class="lightbox-next">&#10095;</button>
+        <img class="lightbox-content" id="lightbox-img" src="">
     </div>
 
     <footer class="footer">
