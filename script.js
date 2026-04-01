@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 archiveGrid.innerHTML += createCardHTML(item, index);
             });
             setupDynamicModal(data);
+            initTimelineSlider(data); // Ініціалізація повзунка після рендеру
         }
         
         observeRevealElements();
@@ -86,7 +87,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     mTitle.textContent = item.title;
                     mDate.textContent = formatDate(item.date);
-                    mContent.innerHTML = item.full_text;
+                    
+                    // ДОДАЄМО ЛОГІКУ ДЛЯ АЛЬБОМУ (ГАЛЕРЕЇ)
+                    let fullHtml = item.full_text || "";
+                    if (item.gallery_urls && item.gallery_urls.trim() !== "") {
+                        const urls = item.gallery_urls.split(',').map(u => u.trim()).filter(u => u);
+                        if (urls.length > 0) {
+                            fullHtml += `
+                            <div class="modal-gallery-wrapper">
+                                <h4 style="font-family: 'Merriweather', serif; color: var(--primary-color);">Фотогалерея</h4>
+                                <div class="modal-gallery">`;
+                            urls.forEach(url => {
+                                fullHtml += `<img src="${url}" alt="Фото" class="gallery-item">`;
+                            });
+                            fullHtml += `</div></div>`;
+                        }
+                    }
+                    mContent.innerHTML = fullHtml;
 
                     if (item.image_url && item.image_url.trim() !== "") {
                         mImgContainer.innerHTML = `<img src="${item.image_url}" alt="${item.title}" class="modal-hero-img">`;
@@ -117,6 +134,47 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === modal) {
                 modal.style.display = 'none';
                 document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    // --- ЛОГІКА ПОВЗУНКА ЧАСУ ---
+    function initTimelineSlider(newsItems) {
+        const sliderContainer = document.getElementById('archive-timeline-container');
+        const slider = document.getElementById('archive-date-slider');
+        const dateLabel = document.getElementById('timeline-current-date');
+        const newsCards = document.querySelectorAll('#news-grid-archive .card');
+
+        if (!slider || newsItems.length === 0 || newsCards.length === 0) return;
+
+        sliderContainer.style.display = 'block';
+        slider.max = newsItems.length - 1;
+        slider.value = 0;
+
+        if(newsItems[0].date) {
+            dateLabel.innerText = formatDate(newsItems[0].date);
+        }
+
+        slider.addEventListener('input', (e) => {
+            const index = parseInt(e.target.value);
+            const targetCard = newsCards[index];
+            const targetData = newsItems[index];
+
+            if (targetCard) {
+                // Плавний скрол з урахуванням закріпленої шапки
+                const headerOffset = 120;
+                const elementPosition = targetCard.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                     top: offsetPosition,
+                     behavior: "smooth"
+                });
+                
+                if(targetData.date) {
+                    dateLabel.innerText = formatDate(targetData.date);
+                    dateLabel.style.transform = "scale(1.05)";
+                    setTimeout(() => dateLabel.style.transform = "scale(1)", 200);
+                }
             }
         });
     }
@@ -187,7 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error("Помилка завантаження таблиці:", error);
             });
     }
-
 
     // --- STANDARD SITE CODE ---
 
@@ -278,12 +335,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- ОНОВЛЕНИЙ ЛАЙТБОКС (ДЛЯ ДИНАМІЧНИХ ФОТО) ---
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
     const lightboxPrev = document.querySelector('.lightbox-prev');
     const lightboxNext = document.querySelector('.lightbox-next');
-    const galleryItems = document.querySelectorAll('.gallery-item');
     
     let currentGalleryImages = []; 
     let currentIndex = 0; 
@@ -294,20 +351,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    galleryItems.forEach(item => {
-        item.addEventListener('click', function(e) {
+    // Делегування подій дозволяє лайтбоксу бачити динамічно створені фото
+    document.body.addEventListener('click', function(e) {
+        if (e.target.classList.contains('gallery-item')) {
             e.stopPropagation();
             lightbox.style.display = 'block';
-            const parentGallery = this.closest('.gallery-grid');
+            
+            // Шукаємо батьківський блок, щоб зібрати всі картинки альбому
+            const parentGallery = e.target.closest('.gallery-grid, .modal-gallery');
             if (parentGallery) {
                 currentGalleryImages = Array.from(parentGallery.querySelectorAll('.gallery-item'));
-                currentIndex = currentGalleryImages.indexOf(this);
+                currentIndex = currentGalleryImages.indexOf(e.target);
             } else {
-                currentGalleryImages = [this];
+                currentGalleryImages = [e.target];
                 currentIndex = 0;
             }
             updateLightboxImage();
-        });
+        }
     });
 
     function showNextImage() {
@@ -347,56 +407,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize Banner Killer immediately
     forceRemoveGoogleBanner();
 });
 
-/* --- LANGUAGE SWITCHER LOGIC (ВИПРАВЛЕНО 1 КЛІК) --- */
+/* --- LANGUAGE SWITCHER LOGIC --- */
 function changeLanguage(lang) {
-    // 1. Встановлення або видалення cookies
     if (lang === 'uk') {
-        // Видаляємо cookies для повернення до оригіналу (всі варіанти шляхів)
         document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname;
         document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     } else {
-        // Встановлюємо німецьку
         document.cookie = "googtrans=/uk/de; path=/; domain=" + window.location.hostname;
         document.cookie = "googtrans=/uk/de; path=/";
     }
 
-    // 2. МИТТЄВЕ візуальне оновлення (не чекаючи перезавантаження)
     updateActiveLangBtn(lang);
     const isGerman = (lang === 'de');
     updateGreetingText(isGerman);
 
-    // 3. Перезавантаження сторінки для застосування змін
-    // Невеликий тайм-аут дає час браузеру записати кукі
     setTimeout(() => {
         window.location.reload();
     }, 100);
 }
 
-/* --- GREETING TEXT & BANNER REMOVER OBSERVER --- */
 const observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-        
-        // 1. Перевірка на "Grüß Gott" та стан кнопок
         if (mutation.type === "attributes" && mutation.attributeName === "class") {
             const isTranslated = document.documentElement.classList.contains('translated-ltr');
-            
-            // Якщо Google ще "тримає" клас, але ми натиснули UA - ігноруємо (бо скоро буде релоад)
-            // Але якщо це ініціалізація - оновлюємо.
             updateGreetingText(isTranslated);
             
             if(isTranslated) {
                 updateActiveLangBtn('de');
             } else {
-                // Якщо класу немає - це точно UA
                 updateActiveLangBtn('uk');
             }
         }
 
-        // 2. Видалення відступу Google
         if (document.body.style.top && document.body.style.top !== "0px") {
             document.body.style.setProperty('top', '0px', 'important');
             document.body.style.setProperty('position', 'static', 'important');
@@ -413,7 +458,6 @@ observer.observe(document.body, {
     attributes: true,
     attributeFilter: ['style']
 });
-
 
 function updateActiveLangBtn(lang) {
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));
@@ -451,9 +495,7 @@ function forceRemoveGoogleBanner() {
     }, 1000);
 }
 
-// Перевірка при завантаженні (Initial Check)
 window.addEventListener('load', function() {
-    // Перевіряємо кукі або клас
     let isGerman = document.cookie.includes('googtrans=/uk/de') || document.documentElement.classList.contains('translated-ltr');
     
     updateGreetingText(isGerman);
