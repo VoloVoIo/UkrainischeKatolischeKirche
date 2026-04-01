@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 archiveGrid.innerHTML += createCardHTML(item, index);
             });
             setupDynamicModal(data);
-            initTimelineSlider(data); // Ініціалізація повзунка після рендеру
+            initTimelineSlider(data); 
         }
         
         observeRevealElements();
@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     mTitle.textContent = item.title;
                     mDate.textContent = formatDate(item.date);
                     
-                    // ДОДАЄМО ЛОГІКУ ДЛЯ АЛЬБОМУ (ГАЛЕРЕЇ)
                     let fullHtml = item.full_text || "";
                     if (item.gallery_urls && item.gallery_urls.trim() !== "") {
                         const urls = item.gallery_urls.split(',').map(u => u.trim()).filter(u => u);
@@ -138,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- ЛОГІКА ПОВЗУНКА ЧАСУ ---
+    // --- ОНОВЛЕНА ЛОГІКА ВЕРТИКАЛЬНОГО ПОВЗУНКА ЧАСУ ---
     function initTimelineSlider(newsItems) {
         const sliderContainer = document.getElementById('archive-timeline-container');
         const slider = document.getElementById('archive-date-slider');
@@ -147,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!slider || newsItems.length === 0 || newsCards.length === 0) return;
 
-        sliderContainer.style.display = 'block';
+        sliderContainer.style.display = 'flex';
         slider.max = newsItems.length - 1;
         slider.value = 0;
 
@@ -161,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetData = newsItems[index];
 
             if (targetCard) {
-                // Плавний скрол з урахуванням закріпленої шапки
                 const headerOffset = 120;
                 const elementPosition = targetCard.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -172,8 +170,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if(targetData.date) {
                     dateLabel.innerText = formatDate(targetData.date);
-                    dateLabel.style.transform = "scale(1.05)";
-                    setTimeout(() => dateLabel.style.transform = "scale(1)", 200);
+                    
+                    // Показуємо лейбл дати
+                    dateLabel.style.opacity = '1';
+                    dateLabel.style.transform = 'translateX(0)';
+                    
+                    // Ховаємо через 1.5 сек
+                    clearTimeout(window.sliderDateTimeout);
+                    window.sliderDateTimeout = setTimeout(() => {
+                        dateLabel.style.opacity = '0';
+                        dateLabel.style.transform = 'translateX(20px)';
+                    }, 1500);
                 }
             }
         });
@@ -335,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- ОНОВЛЕНИЙ ЛАЙТБОКС (ДЛЯ ДИНАМІЧНИХ ФОТО) ---
+    // --- ОНОВЛЕНИЙ ЛАЙТБОКС (СТИЛЬНИЙ ALBUM) ---
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
@@ -351,13 +358,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Делегування подій дозволяє лайтбоксу бачити динамічно створені фото
     document.body.addEventListener('click', function(e) {
         if (e.target.classList.contains('gallery-item')) {
             e.stopPropagation();
-            lightbox.style.display = 'block';
+            lightbox.style.display = 'flex'; // ТЕПЕР FLEX Замість BLOCK
             
-            // Шукаємо батьківський блок, щоб зібрати всі картинки альбому
             const parentGallery = e.target.closest('.gallery-grid, .modal-gallery');
             if (parentGallery) {
                 currentGalleryImages = Array.from(parentGallery.querySelectorAll('.gallery-item'));
@@ -386,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
 
     document.addEventListener('keydown', (e) => {
-        if (lightbox && lightbox.style.display === 'block') {
+        if (lightbox && lightbox.style.display === 'flex') {
             if (e.key === 'ArrowRight') showNextImage();
             if (e.key === 'ArrowLeft') showPrevImage();
             if (e.key === 'Escape') lightbox.style.display = 'none';
