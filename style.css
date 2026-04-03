@@ -502,6 +502,92 @@ ul { list-style: none; }
     
     .contact-wrapper { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.2rem; }
+
+    /* --- CALENDAR FAB & FULLCALENDAR STYLES --- */
+.calendar-fab {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 25px rgba(0,87,184,0.4);
+    cursor: pointer;
+    z-index: 999;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+.calendar-fab:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0,87,184,0.6);
+    background-color: var(--primary-dark);
+}
+.calendar-fab i { font-size: 1.4rem; }
+
+/* Адаптація для мобільних телефонів (щоб кнопка стала круглою) */
+@media (max-width: 768px) {
+    .calendar-fab {
+        right: 20px;
+        bottom: 20px;
+        padding: 18px;
+        border-radius: 50%;
+    }
+    .calendar-fab span {
+        display: none; /* Ховаємо текст на телефонах */
+    }
+    .calendar-fab i { font-size: 1.8rem; margin: 0; }
+}
+
+/* --- Налаштування візуалу самого FullCalendar --- */
+.fc { font-family: 'Open Sans', sans-serif; }
+.fc .fc-toolbar-title {
+    font-family: 'Merriweather', serif;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.fc .fc-button-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    text-transform: capitalize;
+}
+.fc .fc-button-primary:hover, .fc .fc-button-primary:active, .fc .fc-button-active {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+}
+.fc-theme-standard th {
+    background: #f8faff;
+    padding: 10px 0;
+    color: var(--text-dark);
+    font-weight: 600;
+    border-color: #e1e8f0;
+}
+.fc-daygrid-event {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 2px 5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: var(--primary-color);
+    border: none;
+    color: white !important;
+    margin-bottom: 2px;
+}
+.fc-daygrid-event:hover {
+    transform: scale(1.03);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 5;
+}
+.fc-event-title { font-weight: 600; }
+.fc-event-time { font-weight: 400; opacity: 0.9; }
+.fc-list-event { cursor: pointer; }
     .section-title { font-size: 2rem; }
     .lightbox-content { width: 95%; }
 }
