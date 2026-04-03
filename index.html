@@ -70,71 +70,57 @@
         </div>
     </section>
 
-    <section id="schedule" class="section bg-light">
-        <div class="container">
-            <h2 class="section-title reveal">Розклад Богослужінь</h2>
+<section class="section schedule-section" id="schedule">
+    <div class="container">
+        <h2 class="section-title">Розклад Богослужінь</h2>
+
+        <div class="schedule-grid">
             
-            <div class="schedule-grid">
-                
-                <div class="schedule-card reveal-left">
-                    <div class="card-icon"><i class="fas fa-praying-hands"></i></div>
-                    <h3>Субота</h3>
-                    <ul class="time-list">
-                        <li>
-                            <span class="time">09:00</span>
-                            <span class="event">Божественна Літургія за померлих / Панахида</span>
-                        </li>
+            <div class="schedule-info-cards">
+                <div class="schedule-card">
+                    <h3><i class="fas fa-church"></i> Субота</h3>
+                    <ul class="schedule-list">
+                        <li><strong>17:00</strong> <span>Вечірня</span></li>
+                        <li><strong>18:00</strong> <span>Свята Літургія</span></li>
                     </ul>
                 </div>
-
-                <div class="schedule-card reveal-right">
-                    <div class="card-icon"><i class="fas fa-church"></i></div>
-                    <h3>Неділя</h3>
-                    <ul class="time-list">
-                        <li>
-                            <span class="time">11:30</span>
-                            <span class="event">Вервиця / Сповідь</span>
-                        </li>
-                        <li>
-                            <span class="time">12:00</span>
-                            <span class="event"><strong>Божественна Літургія</strong></span>
-                        </li>
+                
+                <div class="schedule-card">
+                    <h3><i class="fas fa-sun"></i> Неділя</h3>
+                    <ul class="schedule-list">
+                        <li><strong>09:00</strong> <span>Свята Літургія</span></li>
+                        <li><strong>11:00</strong> <span>Свята Літургія</span></li>
                     </ul>
-                    <div class="schedule-note-box">
-                        <i class="fas fa-info-circle"></i>
-                        <p>Кожна 1-ша та 3-тя неділя місяця — <strong>СУМ при парафії</strong></p>
-                    </div>
                 </div>
             </div>
 
-            <div class="special-announcement reveal-up">
-                <h4><i class="far fa-calendar-check"></i> Важлива інформація</h4>
-                <p>Розклад Богослужінь на великі свята (зокрема Пасхальні) буде оновлено найближчим часом після узгодження.</p>
-            </div>
-
-            <!-- ДОДАНИЙ БЛОК GOOGLE КАЛЕНДАРЯ -->
-            <div class="calendar-section reveal-up" style="margin-top: 50px; text-align: center;">
-                <h3 style="margin-bottom: 15px; color: #0057B8; font-family: 'Merriweather', serif;"><i class="far fa-calendar-alt"></i> Детальний Календар Подій</h3>
-                <p style="margin-bottom: 25px;">Тут ви можете переглядати актуальний розклад та легко додавати події до свого особистого календаря.</p>
-                
-                <div class="google-calendar-container" style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; max-width: 800px; margin: 0 auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); background: #fff;">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=ukk.augsburg%40gmail.com&ctz=Europe%2FBerlin" style="border: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" scrolling="no"></iframe>
+            <div class="schedule-calendar-wrapper">
+                <div class="calendar-header">
+                    <h3>Календар Подій</h3>
+                    <button class="info-modal-btn" onclick="document.getElementById('info-modal').classList.add('active')">
+                        <i class="fas fa-info-circle"></i> Важлива інформація
+                    </button>
                 </div>
                 
-                <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://calendar.google.com/calendar/u/0/r?cid=ukk.augsburg@gmail.com" target="_blank" class="btn btn-primary shimmer">
-                        <i class="fas fa-plus-circle"></i> Додати до свого календаря
-                    </a>
-                    <a href="https://calendar.google.com/calendar/embed?src=ukk.augsburg%40gmail.com&ctz=Europe%2FBerlin" target="_blank" class="btn btn-outline">
-                        <i class="fas fa-external-link-alt"></i> Відкрити на весь екран
-                    </a>
+                <div class="calendar-container">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=ukrainische.kirche.augsburg%40gmail.com&ctz=Europe%2FBerlin" style="border: 0" width="100%" height="450" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
-            <!-- КІНЕЦЬ БЛОКУ КАЛЕНДАРЯ -->
-
+            
         </div>
-    </section>
+    </div>
+</section>
 
+<div id="info-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-modal-close" onclick="document.getElementById('info-modal').classList.remove('active')">&times;</span>
+        <h3><i class="fas fa-exclamation-circle" style="color: var(--primary-color);"></i> Важлива інформація</h3>
+        <p style="margin-top: 15px;">
+            Тут ви можете розмістити актуальну інформацію про Сповідь, Хрещення, зміни в розкладі або інші важливі оголошення для парафіян.
+        </p>
+    </div>
+</div>
+    
     <section id="news" class="section">
         <div class="container">
             <h2 class="section-title reveal">Останні Новини</h2>
