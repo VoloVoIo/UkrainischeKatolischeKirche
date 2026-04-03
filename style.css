@@ -27,7 +27,6 @@ body {
 }
 
 /* --- FIX GOOGLE TRANSLATE BANNER (AGGRESSIVE) --- */
-/* Приховуємо iframe банера */
 .goog-te-banner-frame.skiptranslate {
     display: none !important;
     height: 0 !important;
@@ -37,7 +36,6 @@ body {
 iframe.goog-te-banner-frame {
     display: none !important;
 }
-/* Прибираємо зсув, який Google додає до body */
 body > .skiptranslate {
     display: none !important;
 }
@@ -48,10 +46,9 @@ body > .skiptranslate {
     display: none !important;
 }
 #google_translate_element {
-    display: none !important; /* Сам віджет теж ховаємо, бо керуємо кнопками */
+    display: none !important; 
 }
 
-/* Клас для елементів, які НЕ треба перекладати */
 .notranslate {
     transform: translate(0px, 0px); 
 }
@@ -276,18 +273,36 @@ ul { list-style: none; }
 }
 .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
 
+/* ОНОВЛЕНО: Відображення картинок (щоб не обрізались) */
 .card-img-container {
-    height: 220px; width: 100%; display: flex; align-items: center; justify-content: center;
-    background-color: #eee; position: relative; overflow: hidden;
+    height: 240px; width: 100%; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #f8faff 0%, #eef4fc 100%); 
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid #e1e8f0;
 }
-.card-photo { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.card-photo { 
+    width: 100%; height: 100%; 
+    object-fit: contain; /* Картинка повністю влазить, не обрізається */
+    padding: 0px; 
+    transition: transform 0.5s ease;
+    z-index: 1; position: relative;
+}
 .card:hover .card-photo { transform: scale(1.05); }
+
+/* Ефект скла на фоні контейнера */
+.card-img-container::before {
+    content: "";
+    position: absolute;
+    width: 150%; height: 150%;
+    background: radial-gradient(circle, rgba(0,87,184,0.04) 0%, rgba(0,87,184,0) 70%);
+    z-index: 0;
+}
 
 .icon-bg-blue { background-color: #e3f2fd; }
 .icon-bg-orange { background-color: #fff3e0; }
 .icon-bg-green { background-color: #e8f5e9; }
 .icon-bg-gray { background-color: #f1f5f9; }
-.card-placeholder-icon { font-size: 4rem; opacity: 0.8; color: var(--primary-color); }
+.card-placeholder-icon { font-size: 4rem; opacity: 0.8; color: var(--primary-color); position: relative; z-index: 1; }
 .icon-bg-orange i { color: #e65100; } .icon-bg-green i { color: #2e7d32; }
 
 .card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -303,7 +318,7 @@ ul { list-style: none; }
 
 /* --- ARCHIVE PAGE STYLES --- */
 .archive-header {
-    margin-top: 80px; /* offset for fixed header */
+    margin-top: 80px; 
     background: var(--bg-light);
     padding: 60px 0;
     text-align: center;
@@ -317,6 +332,75 @@ ul { list-style: none; }
 }
 .btn-back:hover { color: var(--primary-color); }
 
+/* --- ОНОВЛЕНО: ВЕРТИКАЛЬНИЙ ПОВЗУНОК ЧАСУ (Google Photos Style) --- */
+.archive-timeline-container {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 990;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    pointer-events: none; /* Щоб не блокував кліки поза зоною */
+}
+.timeline-slider-wrapper {
+    pointer-events: auto;
+    height: 400px;
+    width: 30px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.8);
+}
+.timeline-slider {
+    -webkit-appearance: none;
+    width: 360px; /* Довжина вертикального повзунка */
+    height: 6px;
+    background: #d1d8e0;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transform: rotate(90deg); /* Робимо вертикальним */
+    transform-origin: center;
+}
+.timeline-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,87,184,0.4);
+}
+.timeline-slider::-webkit-slider-thumb:hover, .timeline-slider:active::-webkit-slider-thumb {
+    transform: scale(1.3);
+}
+#timeline-current-date {
+    pointer-events: auto;
+    display: block;
+    margin: 0;
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0,87,184,0.3);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+}
 
 /* --- CONTACT SECTION --- */
 .contact-wrapper {
@@ -338,12 +422,25 @@ ul { list-style: none; }
 .details p { color: var(--text-light); margin-bottom: 5px; line-height: 1.4; }
 .details a { color: var(--primary-color); font-weight: 600; }
 
-.fb-bg { background: #1877F2; color: white; }
-.btn-facebook {
-    display: inline-block; background: #1877F2; color: white !important; font-size: 0.9rem;
-    padding: 8px 16px; border-radius: 20px; margin-top: 5px; text-decoration: none;
+.btn-social {
+    display: inline-block; 
+    background: transparent; 
+    color: var(--primary-color) !important; 
+    border: 2px solid var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 8px 16px; 
+    border-radius: 20px; 
+    margin-top: 5px; 
+    text-decoration: none;
+    transition: var(--transition);
 }
-.btn-facebook:hover { background: #1465c8; }
+.btn-social:hover { 
+    background: var(--primary-color); 
+    color: var(--white) !important; 
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 87, 184, 0.2);
+}
 
 .map-container {
     height: 450px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
@@ -379,7 +476,7 @@ ul { list-style: none; }
 .btn-whatsapp:hover { background: #1ebc57; transform: translateY(-2px); }
 .contact-hint { color: #777; font-size: 0.9rem; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;}
 
-/* --- GALLERY STYLES --- */
+/* --- GALLERY STYLES & MODAL ALBUM --- */
 .gallery-section { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
 .gallery-section h4 { margin-bottom: 15px; }
 .small-text { font-size: 0.9rem; color: #777; margin-bottom: 15px; }
@@ -390,61 +487,90 @@ ul { list-style: none; }
 }
 .gallery-item {
     width: 100%; height: 120px; object-fit: cover; border-radius: 8px;
-    cursor: zoom-in; transition: transform 0.3s ease; border: 1px solid #eee;
+    cursor: zoom-in; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); border: 1px solid #eee;
 }
-.gallery-item:hover { transform: scale(1.05); z-index: 5; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.gallery-item:hover { transform: scale(1.05); z-index: 5; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
 
-/* --- LIGHTBOX (IMAGE ZOOM) --- */
+/* Скрол-альбом для новин */
+.modal-gallery-wrapper {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+.modal-gallery {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 15px 5px 25px 5px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+.modal-gallery .gallery-item {
+    height: 160px;
+    min-width: 220px;
+    scroll-snap-align: start;
+    border-radius: var(--radius);
+}
+.modal-gallery::-webkit-scrollbar { height: 8px; }
+.modal-gallery::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+.modal-gallery::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
+
+/* --- ОНОВЛЕНО: ЛАЙТБОКС (ГАРМОНІЙНИЙ ALBUM UX) --- */
 .lightbox {
-    display: none; position: fixed; z-index: 3000; padding-top: 50px;
-    left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
-    background-color: rgba(0,0,0,0.9);
-    user-select: none; /* Щоб не виділявся текст при кліку */
+    display: none; /* JS мінятиме на 'flex' */
+    position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(255, 255, 255, 0.85); /* Ефект матового скла */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    user-select: none; 
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    max-height: 90vh;
 }
 .lightbox-content {
-    margin: auto; display: block; width: 80%; max-width: 900px;
-    max-height: 85vh; object-fit: contain;
-    border-radius: 5px; box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    animation: zoom 0.3s;
+    display: block;
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 87, 184, 0.15);
+    background: #fff;
+    padding: 4px; /* Ефект тонкої рамки-фотографії */
+    animation: zoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    object-fit: contain;
 }
 @keyframes zoom { from {transform:scale(0.8); opacity: 0} to {transform:scale(1); opacity: 1} }
+
 .lightbox-close {
-    position: absolute; top: 20px; right: 35px; color: #f1f1f1;
-    font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; z-index: 3002;
+    position: absolute; top: 20px; right: 30px; color: var(--text-dark);
+    font-size: 35px; font-weight: 300; transition: 0.3s; cursor: pointer; z-index: 3002;
+    width: 50px; height: 50px; background: rgba(255,255,255,0.6);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-.lightbox-close:hover, .lightbox-close:focus { color: #bbb; text-decoration: none; cursor: pointer; }
+.lightbox-close:hover { background: #fff; transform: scale(1.1); color: var(--primary-color); }
 
-/* LIGHTBOX ARROWS */
+/* Стрілки поряд біля картинки */
 .lightbox-prev, .lightbox-next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -50px;
-    color: white;
-    font-weight: bold;
-    font-size: 30px;
-    transition: 0.3s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    background: transparent;
-    border: none;
-    z-index: 3001;
+    cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+    background: #fff; color: var(--text-dark); border: none;
+    width: 45px; height: 45px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease; z-index: 3001;
 }
-
-.lightbox-next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-.lightbox-prev {
-    left: 0;
-    border-radius: 3px 0 0 3px;
-}
+.lightbox-prev { left: -25px; }
+.lightbox-next { right: -25px; }
 
 .lightbox-prev:hover, .lightbox-next:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--primary-color); transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 6px 20px rgba(0, 87, 184, 0.2);
 }
 
 /* --- FOOTER --- */
@@ -465,36 +591,34 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
-    /* Меню виїжджає гарно, не на весь екран */
     .nav-list {
         position: fixed; 
         right: 0; 
         height: 100vh; 
         top: 0; 
-        background: rgba(255, 255, 255, 0.98); /* Майже непрозорий */
-        backdrop-filter: blur(25px); /* Ефект розмиття фону */
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(25px); 
         flex-direction: column; 
         align-items: center; 
-        justify-content: center; /* Центрування пунктів по вертикалі */
-        width: 65%; /* Не на весь екран, а на 80% */
+        justify-content: center;
+        width: 65%; 
         transform: translateX(100%);
         transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0);
-        box-shadow: -10px 0 30px rgba(0,0,0,0.15); /* Гарна тінь зліва */
+        box-shadow: -10px 0 30px rgba(0,0,0,0.15);
         padding-top: 0; 
         z-index: 999;
     }
     
     .nav-link {
-        font-size: 1.4rem; /* Більший шрифт для телефону */
+        font-size: 1.4rem; 
         margin: 15px 0;
         display: block;
     }
 
-    /* Мова в мобільному меню */
     .lang-switch-li {
         margin-left: 0;
         margin-top: 20px;
-        transform: scale(1.2); /* Робимо кнопки більшими для пальця */
+        transform: scale(1.2); 
     }
 
     .burger { display: block; }
@@ -502,50 +626,42 @@ ul { list-style: none; }
     
     .contact-wrapper { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.2rem; }
+    .section-title { font-size: 2rem; }
+    
+    .lightbox-prev { left: -10px; width: 40px; height: 40px; }
+    .lightbox-next { right: -10px; width: 40px; height: 40px; }
+    .archive-timeline-container { right: 5px; transform: scale(0.85) translateY(-50%); }
+}
 
-    /* --- CALENDAR FAB & FULLCALENDAR STYLES --- */
-.calendar-fab {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
+/* --- СТИЛІ ДЛЯ КНОПКИ КАЛЕНДАРЯ В РОЗДІЛІ РОЗКЛАД --- */
+.btn-calendar-section {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 50px;
-    padding: 15px 25px;
+    border-radius: 8px;
+    padding: 15px 35px;
     font-size: 1.1rem;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    box-shadow: 0 10px 25px rgba(0,87,184,0.4);
+    gap: 12px;
     cursor: pointer;
-    z-index: 999;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 5px 15px rgba(0, 87, 184, 0.2);
 }
-.calendar-fab:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(0,87,184,0.6);
+
+.btn-calendar-section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 87, 184, 0.4);
     background-color: var(--primary-dark);
 }
-.calendar-fab i { font-size: 1.4rem; }
 
-/* Адаптація для мобільних телефонів (щоб кнопка стала круглою) */
-@media (max-width: 768px) {
-    .calendar-fab {
-        right: 20px;
-        bottom: 20px;
-        padding: 18px;
-        border-radius: 50%;
-    }
-    .calendar-fab span {
-        display: none; /* Ховаємо текст на телефонах */
-    }
-    .calendar-fab i { font-size: 1.8rem; margin: 0; }
+.btn-calendar-section i {
+    font-size: 1.4rem;
 }
 
-/* --- Налаштування візуалу самого FullCalendar --- */
+/* Налаштування візуалу самого FullCalendar */
 .fc { font-family: 'Open Sans', sans-serif; }
 .fc .fc-toolbar-title {
     font-family: 'Merriweather', serif;
@@ -588,6 +704,3 @@ ul { list-style: none; }
 .fc-event-title { font-weight: 600; }
 .fc-event-time { font-weight: 400; opacity: 0.9; }
 .fc-list-event { cursor: pointer; }
-    .section-title { font-size: 2rem; }
-    .lightbox-content { width: 95%; }
-}
