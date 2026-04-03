@@ -24,7 +24,7 @@
     <header class="header" id="header">
         <div class="container header-container">
             <a href="#" class="logo">
-                <img src="img/UkPGaugsburg_logo.jpg" alt="Логотип УГКЦ Аугсбург" class="logo-img">
+                <img src="img/UkPGaugsburg_logoNEW.jpg" alt="Логотип УГКЦ Аугсбург" class="logo-img">
             </a>
             <nav class="nav">
                 <ul class="nav-list" id="nav-list">
@@ -70,51 +70,101 @@
         </div>
     </section>
 
-    <section id="schedule" class="section bg-light">
-        <div class="container">
-            <h2 class="section-title reveal">Розклад Богослужінь</h2>
+<section class="section schedule-section" id="schedule">
+    <div class="container">
+        <h2 class="section-title">Розклад та Події</h2>
+
+        <div class="schedule-grid">
             
-            <div class="schedule-grid">
+            <div class="schedule-info-cards">
+                <div class="schedule-card">
+                    <h3><i class="fas fa-sun"></i> Субота</h3>
+                    <ul class="schedule-list">
+                        <li><strong>11:00</strong> <span>Панахида</span></li>
+                    </ul>
+                </div>
                 
-                <div class="schedule-card reveal-left">
-                    <div class="card-icon"><i class="fas fa-praying-hands"></i></div>
-                    <h3>Субота</h3>
-                    <ul class="time-list">
-                        <li>
-                            <span class="time">09:00</span>
-                            <span class="event">Божественна Літургія за померлих / Панахида</span>
-                        </li>
+                <div class="schedule-card">
+                    <h3><i class="fas fa-church"></i> Неділя</h3>
+                    <ul class="schedule-list">
+                        <li><strong>11:30</strong> <span>Вервиця</span></li>
+                        <li><strong>12:00</strong> <span>Свята Літургія</span></li>
                     </ul>
-                </div>
-
-                <div class="schedule-card reveal-right">
-                    <div class="card-icon"><i class="fas fa-church"></i></div>
-                    <h3>Неділя</h3>
-                    <ul class="time-list">
-                        <li>
-                            <span class="time">11:30</span>
-                            <span class="event">Вервиця / Сповідь</span>
-                        </li>
-                        <li>
-                            <span class="time">12:00</span>
-                            <span class="event"><strong>Божественна Літургія</strong></span>
-                        </li>
-                    </ul>
-                    <div class="schedule-note-box">
-                        <i class="fas fa-info-circle"></i>
-                        <p>Кожна 1-ша та 3-тя неділя місяця — <strong>СУМ при парафії</strong></p>
-                    </div>
                 </div>
             </div>
 
-            <div class="special-announcement reveal-up">
-                <h4><i class="far fa-calendar-check"></i> Важлива інформація</h4>
-                <p>Розклад Богослужінь на великі свята (зокрема Пасхальні) буде оновлено найближчим часом після узгодження.</p>
+            <div class="schedule-calendar-wrapper">
+                <div class="calendar-header">
+                    <h3>Календар Громади</h3>
+                    <button class="info-modal-btn" onclick="document.getElementById('info-modal').classList.add('active')">
+                        <i class="fas fa-info-circle"></i> Корисна інформація
+                    </button>
+                </div>
+                
+                <div class="calendar-container">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=ukk.augsburg%40gmail.com&ctz=Europe%2FBerlin&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0" 
+                            style="border: 0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
+                </div>
             </div>
-
+            
         </div>
-    </section>
+    </div>
+</section>
 
+<div id="info-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-modal-close" onclick="document.getElementById('info-modal').classList.remove('active')">&times;</span>
+        <h3 class="modal-title"><i class="fas fa-info-circle"></i> Корисна інформація</h3>
+        
+        <div class="modal-body">
+            <ul class="info-list">
+                <li>
+                    <i class="fas fa-pray"></i> 
+                    <span><strong>Сповідь:</strong> Кожну суботу та неділю перед Літургією.</span>
+                </li>
+                <li>
+                    <i class="fas fa-dove"></i> 
+                    <span><strong>Хрещення та Вінчання:</strong> За попередньою домовленістю з отцем.</span>
+                </li>
+                <li>
+                    <i class="fas fa-users"></i> 
+                    <span><strong>СУМ при парафії:</strong> Кожну 1-шу та 3-тю неділю.</span>
+                </li>
+            </ul>
+
+            <div class="modal-note">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Розклад Богослужінь на великі свята буде оновлено найближчим часом після узгодження.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<div id="info-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-modal-close" onclick="document.getElementById('info-modal').classList.remove('active')">&times;</span>
+        <h3 style="color: var(--primary-color);"><i class="fas fa-exclamation-circle"></i> Корисна інформація</h3>
+        <div class="modal-text">
+            <p><strong>Сповідь:</strong> Кожну суботу та неділю перед Літургією.</p>
+            <p><strong>Хрещення та Вінчання:</strong> За попередньою домовленістю з отцем.</p>
+            <hr>
+            <p><small>Розклад Богослужінь на великі свята буде оновлено найближчим часом після узгодження.</small></p>
+        </div>
+    </div>
+</div>
+</section>
+
+<div id="info-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-modal-close" onclick="document.getElementById('info-modal').classList.remove('active')">&times;</span>
+        <h3><i class="fas fa-exclamation-circle" style="color: var(--primary-color);"></i> Важлива інформація</h3>
+        <p style="margin-top: 15px;">
+            Тут ви можете розмістити актуальну інформацію про Сповідь, Хрещення, зміни в розкладі або інші важливі оголошення для парафіян.
+        </p>
+    </div>
+</div>
+    
     <section id="news" class="section">
         <div class="container">
             <h2 class="section-title reveal">Останні Новини</h2>
