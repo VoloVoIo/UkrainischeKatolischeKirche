@@ -511,7 +511,6 @@ window.addEventListener('load', function() {
     }
     forceRemoveGoogleBanner();
 });
-
 // --- FULLCALENDAR ІНТЕГРАЦІЯ З GOOGLE ---
     const calendarBtn = document.getElementById('btn-calendar-section');
     const modalCalendarView = document.getElementById('modal-calendar-view');
