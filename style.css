@@ -633,7 +633,6 @@ ul { list-style: none; }
     .archive-timeline-container { right: 5px; transform: scale(0.85) translateY(-50%); }
 }
 
-/* --- СТИЛІ ДЛЯ КНОПКИ КАЛЕНДАРЯ В РОЗДІЛІ РОЗКЛАД --- */
 .btn-calendar-section {
     background-color: var(--primary-color);
     color: white;
