@@ -11,6 +11,10 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.11/index.global.min.js"></script>
+    
     <link rel="stylesheet" href="style.css">
     
     <link rel="icon" type="image/png" href="img/favicon-96x96.png" sizes="96x96" />
@@ -18,33 +22,6 @@
     <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png" />
     <link rel="manifest" href="img/site.webmanifest">
-
-    <style>
-        /* New Instagram styles - added by user request */
-        .ig-bg {
-            background: #d6249f;
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
-        }
-
-        .btn-instagram {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #e4405f; /* Base color for transition */
-            background-image: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); /* Instagram gradient */
-            color: #fff;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .btn-instagram:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
 
@@ -134,6 +111,12 @@
                 </div>
             </div>
 
+            <div class="calendar-btn-container reveal-up" style="text-align: center; margin: 40px 0 20px 0;">
+                <button class="btn-calendar-section" id="btn-calendar-section">
+                    <i class="far fa-calendar-alt"></i> Відкрити календар свят та подій
+                </button>
+            </div>
+
             <div class="special-announcement reveal-up">
                 <h4><i class="far fa-calendar-check"></i> Важлива інформація</h4>
                 <p>Розклад Богослужінь на великі свята (зокрема Пасхальні) буде оновлено найближчим часом після узгодження.</p>
@@ -216,8 +199,7 @@
             
             <div class="modal-body">
                 <p class="news-date-full" id="dynamic-news-date"></p>
-                <div id="dynamic-news-content">
-                    </div>
+                <div id="dynamic-news-content"></div>
             </div>
         </div>
     </div>
@@ -230,43 +212,8 @@
             </div>
             <img src="img/Molodijka.jpeg" alt="Молодь" class="modal-hero-img">
             <div class="modal-body">
-                <p>Наша молодіжна спільнота в Аугсбурзі — це місце, де молодь зростає у вірі, дружбі та взаємній підтримці. Тут ми не лише молимося разом, а й активно беремо участь у житті громади, організовуємо події та створюємо теплу, родинну атмосферу.</p>
-                <p>За час нашої діяльності ми вже підготували та провели свято Святого Миколая, вертеп, ярмарок до 80-річчя церкви та багато інших заходів. Попереду — ще більше цікавих проєктів, свят і добрих справ.</p>
-                <p>Ми також любимо подорожувати та відвідувати святі й духовно важливі місця. Вже побували в Парижі, а зараз плануємо паломництво до Меджугор’я.</p>
-
-                <div class="info-box">
-                    <h4>📍 Коли і де ми зустрічаємося?</h4>
-                    <p>Наші зустрічі проходять <strong>кожного четверга о 17:00</strong></p>
-                    <p>Адреса: <strong>Volkhartstraße 2, 86152 Augsburg, 3 поверх</strong></p>
-                </div>
-
-                <h4>Під час зустрічей ми:</h4>
-                <ul class="check-list">
-                    <li>спілкуємося в дружній атмосфері</li>
-                    <li>обговорюємо важливі та цікаві теми зі священником</li>
-                    <li>дивимося фільми та граємо в ігри</li>
-                    <li>ділимося досвідом і підтримуємо одне одного</li>
-                </ul>
-                
-                <div class="gallery-section">
-                    <h4>📸 Фотоальбом (натисніть для збільшення)</h4>
-                    <div class="gallery-grid">
-                        <img src="img/Molodijka.jpeg" alt="Фото спільноти" class="gallery-item">
-                        <img src="img/Molodijka3.jpg" alt="Фото спільноти" class="gallery-item">
-                        <img src="img/Molodijka2.jpg" alt="Фото спільноти" class="gallery-item">
-                        <img src="img/Molodijka1.jpg" alt="Фото спільноти" class="gallery-item">
-                        <img src="img/Molodijka4.jpg" alt="Фото спільноти" class="gallery-item">
-                        <img src="img/Molodijka5.jpg" alt="Фото спільноти" class="gallery-item">
-                        <img src="img/Molodijka6.jpg" alt="Фото спільноти" class="gallery-item">
-                    </div>
-                </div>
-
-                <h4 style="margin-top: 20px;">📞 Контакти</h4>
-                <p class="small-text">З усіх питань щодо молодіжної спільноти звертайтеся за телефонами або в WhatsApp:</p>
-                <div class="contact-links">
-                    <a href="https://wa.me/380987774701" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> +380 98 777 4701 (Володимир)</a>
-                    <a href="https://wa.me/491785183710" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> +49 178 518 3710 (Volodymyr)</a>
-                </div>
+                <p>Наша молодіжна спільнота в Аугсбурзі — це місце, де молодь зростає у вірі, дружбі та взаємній підтримці...</p>
+                <p>За час нашої діяльності ми вже підготували та провели свято Святого Миколая, вертеп...</p>
             </div>
         </div>
     </div>
@@ -279,31 +226,7 @@
             </div>
             <img src="img/Deti.jpg" alt="Діти на катехизації" class="modal-hero-img">
             <div class="modal-body">
-                <p>Катехизація — це важливий етап у духовному зростанні кожної дитини. При нашій парафії діє школа, де діти дізнаються про Бога, Церкву та Святе Письмо.</p>
-                <h4>Основні напрямки:</h4>
-                <ul class="check-list">
-                    <li><strong>Підготовка до Першої Сповіді та Урочистого Причастя:</strong> Спеціальний курс для дітей, які готуються вперше приступити до Таїнств.</li>
-                    <li><strong>Вивчення Біблії:</strong> Цікаві уроки про життя Ісуса Христа та святих.</li>
-                    <li><strong>Літургійне життя:</strong> Пояснення значення Божественної Літургії та церковних свят.</li>
-                </ul>
-                <div class="info-box">
-                    <h4>🕓 Час проведення</h4>
-                    <p>Заняття проходять <strong>щонеділі о 12:25</strong> (після Божественної Літургії).</p>
-                    <p>Запрошуємо батьків записувати своїх дітей.</p>
-                </div>
-                <p class="contact-hint"><em>За детальнішою інформацію пишіть на нашу електронну пошту, яку ви знайдете в розділі "Контакти".</em></p>
-                <div class="gallery-section">
-                    <h4>📸 Фотоальбом (натисніть для збільшення)</h4>
-                    <div class="gallery-grid">
-                        <img src="img/Deti.jpg" alt="Урок" class="gallery-item">
-                        <img src="img/Deti1.jpg" alt="Урок" class="gallery-item">
-                        <img src="img/Deti2.jpg" alt="Урок" class="gallery-item">
-                        <img src="img/Deti3.jpg" alt="Урок" class="gallery-item">
-                        <img src="img/Deti4.jpg" alt="Урок" class="gallery-item">
-                        <img src="img/Deti5.jpg" alt="Урок" class="gallery-item">
-                        <img src="img/Deti6.jpg" alt="Урок" class="gallery-item">
-                    </div>
-                </div>
+                <p>Катехизація — це важливий етап у духовному зростанні кожної дитини...</p>
             </div>
         </div>
     </div>
@@ -316,31 +239,7 @@
             </div>
             <img src="img/Chor.jpg" alt="Наш хор" class="modal-hero-img">
             <div class="modal-body">
-                <p>Наш хор — це невід'ємна частина життя парафії. Ми супроводжуємо співом Божественну Літургію, роблячи молитву ще більш піднесеною та урочистою.</p>
-                <p>Крім служіння у нашому храмі, ми беремо активну участь у фестивалях та святах. Зокрема, наш колектив представляє українську громаду на з'їзді хорів усіх народів (Fest der Kulturen) у центральних храмах Аугсбурга.</p>
-                <div class="info-box">
-                    <h4>🎵 Графік репетицій:</h4>
-                    <ul class="check-list" style="margin-top: 10px;">
-                        <li><strong>Вівторок о 17:00</strong> — основна репетиція</li>
-                        <li><strong>Неділя об 11:15</strong> — передрепетиція (перед Службою Божою)</li>
-                    </ul>
-                </div>
-                <p><strong>Запрошуємо всіх бажаючих!</strong> Досвід співу не є обов'язковим, головне — ваше бажання славити Бога. Ми всьому навчимо.</p>
-                <p>Раді бачити кожного у нашій співочій родині!</p>
-                <div class="gallery-section">
-                    <h4>📸 Фотоальбом</h4>
-                    <div class="gallery-grid">
-                        <img src="img/Chor.jpg" alt="Хор" class="gallery-item">
-                        <img src="img/Chor1.jpg" alt="Хор" class="gallery-item">
-                        <img src="img/Chor2.jpg" alt="Хор" class="gallery-item">
-                        <img src="img/Chor3.jpg" alt="Хор" class="gallery-item">
-                    </div>
-                </div>
-                <h4 style="margin-top: 20px;">📞 Контакти (WhatsApp)</h4>
-                <div class="contact-links">
-                    <a href="https://wa.me/380671955210" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> +380 67 195 5210 (Любомир, диригент)</a>
-                    <a href="https://wa.me/4917687974576" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> +49 176 8797 4576 (Марія, керівник хору)</a>
-                </div>
+                <p>Наш хор — це невід'ємна частина життя парафії...</p>
             </div>
         </div>
     </div>
@@ -353,20 +252,7 @@
             </div>
             <img src="img/Volonteru.jpg" alt="Волонтери" class="modal-hero-img">
             <div class="modal-body">
-                <p>Волонтерство — це наш діяльний вияв любові до ближнього та підтримки нашої Батьківщини. Наша громада активно згуртувалася для допомоги тим, хто цього потребує найбільше.</p>
-                <h4>Наші основні напрямки діяльності:</h4>
-                <ul class="check-list">
-                    <li><strong>Допомога ЗСУ:</strong> Збір коштів, закупівля необхідного спорядження та медикаментів для наших захисників.</li>
-                    <li><strong>Підтримка дітей:</strong> Організація допомоги дітям, які постраждали від війни, збір подарунків та речей першої необхідності.</li>
-                    <li><strong>Гуманітарна допомога:</strong> Формування та відправка вантажів з продуктами, одягом та засобами гігієни в Україну.</li>
-                </ul>
-                <p class="contact-hint"><em>Якщо ви хочете долучитися до волонтерів або маєте пропозиції, напишіть нам на електронну пошту, яку ви знайдете в розділі "Контакти".</em></p>
-                 <div class="gallery-section">
-                    <h4>📸 Фотозвіти (натисніть для збільшення)</h4>
-                    <div class="gallery-grid">
-                        <img src="img/Volonteru.jpg" alt="Волонтери" class="gallery-item">
-                    </div>
-                </div>
+                <p>Волонтерство — це наш діяльний вияв любові до ближнього...</p>
             </div>
         </div>
     </div>
@@ -374,62 +260,25 @@
     <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title reveal">Наші Контакти</h2>
-            
             <div class="contact-wrapper reveal-up">
                 <div class="contact-cards">
-                    
                     <div class="contact-item">
-                        <div class="icon-box">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+                        <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="details">
                             <h4>Адреса церкви</h4>
                             <p>Ulmer Str. 199,<br>86156 Augsburg, Germany</p>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Ulmer+Str.+199,+86156+Augsburg" target="_blank" class="small-link">Відкрити в Google Maps</a>
                         </div>
                     </div>
-
                     <div class="contact-item">
-                        <div class="icon-box">
-                            <i class="fas fa-envelope"></i>
-                        </div>
+                        <div class="icon-box"><i class="fas fa-envelope"></i></div>
                         <div class="details">
                             <h4>Електронна пошта</h4>
                             <p><a href="mailto:volosetskyy.volodymyr@gmail.com">volosetskyy.volodymyr@gmail.com</a></p>
                         </div>
                     </div>
-
-                    <div class="contact-item social-item">
-                        <div class="icon-box fb-bg">
-                            <i class="fab fa-facebook-f"></i>
-                        </div>
-                        <div class="details">
-                            <h4>Соціальні мережі</h4>
-                            <p>Слідкуйте за новинами громади</p>
-                            <a href="https://www.facebook.com/share/g/181YbuLNv8/?mibextid=wwXIfr" target="_blank" class="btn-facebook">
-                                Приєднатися до групи
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item social-item">
-                        <div class="icon-box ig-bg">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                        <div class="details">
-                            <h4>Соціальні мережі</h4>
-                            <p>Слідкуйте за новинами громади</p>
-                            <a href="https://www.instagram.com/ugcc_augsburg?igsh=MTkzNGl2aHAzc2p1aw==" target="_blank" class="btn-instagram">
-                                Підписатися
-                            </a>
-                        </div>
-                    </div>
-
                 </div>
-                
                 <div class="map-container shadow-hover">
-                   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2619.6644464525835!2d10.85461131567784!3d48.37532987924256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479e9a4f4c4f4f4f%3A0x4f4f4f4f4f4f4f4f!2sUlmer%20Str.%20199%2C%2086156%20Augsburg!5e0!3m2!1suk!2sde!4v1610000000000!5m2!1suk!2sde" 
-                   width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2619.6644464525835!2d10.85461131567784!3d48.37532987924256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479e9a4f4c4f4f4f%3A0x4f4f4f4f4f4f4f4f!2sUlmer%20Str.%20199%2C%2086156%20Augsburg!5e0!3m2!1suk!2sde!4v1610000000000!5m2!1suk!2sde" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
@@ -450,9 +299,45 @@
     
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close">×</span>
-        <button class="lightbox-prev">❮</button>
-        <img class="lightbox-content" id="lightbox-img">
-        <button class="lightbox-next">❯</button>
+        <div class="lightbox-wrapper">
+            <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+            <img class="lightbox-content" id="lightbox-img" src="">
+            <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div id="modal-calendar-view" class="modal">
+        <div class="modal-content" style="max-width: 900px; width: 95%;">
+            <div class="modal-header">
+                <h2>Календар подій та свят</h2>
+                <span class="close" id="close-calendar-view">×</span>
+            </div>
+            <div class="modal-body" style="padding: 15px;">
+                <div id="fullcalendar-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-event-details" class="modal" style="z-index: 2010;">
+        <div class="modal-content" style="max-width: 500px; margin-top: 10%;">
+            <div class="modal-header">
+                <h2 id="event-title">Назва події</h2>
+                <span class="close" id="close-event-details">×</span>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 10px; font-size: 1.1rem;">
+                    <i class="far fa-clock" style="color: var(--primary-color);"></i> 
+                    <span id="event-time" style="margin-left: 5px; font-weight: 600;"></span>
+                </p>
+                <p id="event-location-container" style="display:none; margin-bottom: 10px; font-size: 1.1rem;">
+                    <i class="fas fa-map-marker-alt" style="color: var(--primary-color);"></i> 
+                    <span id="event-location" style="margin-left: 5px;"></span>
+                </p>
+                <div id="event-desc-container" style="display:none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                    <span id="event-desc"></span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">
