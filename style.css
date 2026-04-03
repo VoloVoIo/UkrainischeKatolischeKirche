@@ -875,5 +875,133 @@ ul { list-style: none; }
     .calendar-container iframe {
         height: 380px; /* Трохи менший календар на телефонах */
     }
+
+    /* --- СТИЛІ ДЛЯ НОВОГО РОЗКЛАДУ --- */
+.schedule-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Компактні картки (Субота/Неділя) */
+.schedule-info-cards {
+    flex: 1;
+    min-width: 280px;
+}
+
+.schedule-card {
+    background: #f8faff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 87, 184, 0.1);
+}
+
+.schedule-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.schedule-list {
+    list-style: none;
+    padding: 0;
+}
+
+.schedule-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Контейнер календаря */
+.schedule-calendar-wrapper {
+    flex: 2;
+    min-width: 320px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-container {
+    overflow: hidden;
+    border-radius: 8px;
+    background: #eee;
+}
+
+/* Кнопка "і" */
+.info-modal-btn {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.info-modal-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* Спливаюче вікно */
+.custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal.active { display: flex; }
+
+.custom-modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+.custom-modal-close {
+    position: absolute;
+    right: 15px; top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-text { margin-top: 20px; line-height: 1.6; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Мобільна версія: Картки стають першими */
+@media (max-width: 768px) {
+    .schedule-grid {
+        flex-direction: column;
+    }
+    .calendar-container iframe {
+        height: 400px;
+    }
+}
 }
 .fc-list-event { cursor: pointer; }
