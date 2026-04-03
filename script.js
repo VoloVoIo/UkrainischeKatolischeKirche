@@ -511,3 +511,104 @@ window.addEventListener('load', function() {
     }
     forceRemoveGoogleBanner();
 });
+// --- FULLCALENDAR ІНТЕГРАЦІЯ З GOOGLE ---
+    const calendarBtn = document.getElementById('btn-calendar-section');
+    const modalCalendarView = document.getElementById('modal-calendar-view');
+    const closeCalendarView = document.getElementById('close-calendar-view');
+    const calendarEl = document.getElementById('fullcalendar-container');
+    
+    const modalEventDetails = document.getElementById('modal-event-details');
+    const closeEventDetails = document.getElementById('close-event-details');
+
+    let calendarInitialized = false;
+    let churchCalendar;
+
+    if (calendarBtn && modalCalendarView && calendarEl) {
+        calendarBtn.addEventListener('click', () => {
+            modalCalendarView.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            if (!calendarInitialized) {
+                churchCalendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
+                    locale: 'uk', 
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,listMonth'
+                    },
+                    buttonText: {
+                        today: 'Сьогодні',
+                        month: 'Місяць',
+                        list: 'Список'
+                    },
+                    googleCalendarApiKey: 'AIzaSyBf4_AA8sh5kA1tYMg-KhtyBD8byfH3-Z4',
+                    events: 'ukk.augsburg@gmail.com',
+                    eventClick: function(info) {
+                        info.jsEvent.preventDefault(); // Запобігаємо переходу на нову вкладку
+                        
+                        // Заповнення модального вікна даними
+                        document.getElementById('event-title').textContent = info.event.title;
+                        
+                        // Форматуємо дату і час
+                        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+                        let formattedTime = info.event.start.toLocaleDateString('uk-UA', dateOptions);
+                        
+                        // Якщо подія на весь день
+                        if (info.event.allDay) {
+                             formattedTime = info.event.start.toLocaleDateString('uk-UA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + " (Цілий день)";
+                        }
+                        
+                        document.getElementById('event-time').textContent = formattedTime;
+                        
+                        // Перевірка наявності місця
+                        if(info.event.extendedProps.location) {
+                            document.getElementById('event-location').textContent = info.event.extendedProps.location;
+                            document.getElementById('event-location-container').style.display = 'block';
+                        } else {
+                            document.getElementById('event-location-container').style.display = 'none';
+                        }
+
+                        // Перевірка наявності опису
+                        if(info.event.extendedProps.description) {
+                            document.getElementById('event-desc').innerHTML = info.event.extendedProps.description;
+                            document.getElementById('event-desc-container').style.display = 'block';
+                        } else {
+                            document.getElementById('event-desc-container').style.display = 'none';
+                        }
+
+                        // Відкриваємо вікно з деталями
+                        modalEventDetails.style.display = 'block';
+                    }
+                });
+                
+                churchCalendar.render();
+                calendarInitialized = true;
+            } else {
+                // Якщо вже ініціалізовано, перезапускаємо рендер для правильної ширини
+                setTimeout(() => churchCalendar.render(), 50);
+            }
+        });
+
+        // Закриття вікна календаря
+        closeCalendarView.addEventListener('click', () => {
+            modalCalendarView.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Закриття вікна деталей події
+        closeEventDetails.addEventListener('click', () => {
+            modalEventDetails.style.display = 'none';
+        });
+
+        // Закриття при кліку поза вікном
+        window.addEventListener('click', (e) => {
+            if (e.target === modalCalendarView) {
+                modalCalendarView.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            if (e.target === modalEventDetails) {
+                modalEventDetails.style.display = 'none';
+            }
+        });
+    }
