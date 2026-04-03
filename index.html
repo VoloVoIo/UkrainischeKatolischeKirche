@@ -24,7 +24,7 @@
     <header class="header" id="header">
         <div class="container header-container">
             <a href="#" class="logo">
-                <img src="img/UkPGaugsburg_logo.jpg" alt="Логотип УГКЦ Аугсбург" class="logo-img">
+                <img src="img/UkPGaugsburg_logoNEW.jpg" alt="Логотип УГКЦ Аугсбург" class="logo-img">
             </a>
             <nav class="nav">
                 <ul class="nav-list" id="nav-list">
@@ -78,18 +78,17 @@
             
             <div class="schedule-info-cards">
                 <div class="schedule-card">
-                    <h3><i class="fas fa-church"></i> Субота</h3>
+                    <h3><i class="fas fa-sun"></i> Субота</h3>
                     <ul class="schedule-list">
-                        <li><strong>17:00</strong> <span>Вечірня</span></li>
-                        <li><strong>18:00</strong> <span>Свята Літургія</span></li>
+                        <li><strong>11:00</strong> <span>Панахида</span></li>
                     </ul>
                 </div>
                 
                 <div class="schedule-card">
-                    <h3><i class="fas fa-sun"></i> Неділя</h3>
+                    <h3><i class="fas fa-church"></i> Неділя</h3>
                     <ul class="schedule-list">
-                        <li><strong>09:00</strong> <span>Свята Літургія</span></li>
-                        <li><strong>11:00</strong> <span>Свята Літургія</span></li>
+                        <li><strong>11:30</strong> <span>Вервиця</span></li>
+                        <li><strong>12:00</strong> <span>Свята Літургія</span></li>
                     </ul>
                 </div>
             </div>
@@ -98,7 +97,7 @@
                 <div class="calendar-header">
                     <h3>Календар Громади</h3>
                     <button class="info-modal-btn" onclick="document.getElementById('info-modal').classList.add('active')">
-                        <i class="fas fa-info-circle"></i> Важлива інформація
+                        <i class="fas fa-info-circle"></i> Корисна інформація
                     </button>
                 </div>
                 
@@ -110,6 +109,36 @@
             
         </div>
     </div>
+</section>
+
+<div id="info-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <span class="custom-modal-close" onclick="document.getElementById('info-modal').classList.remove('active')">&times;</span>
+        <h3 class="modal-title"><i class="fas fa-info-circle"></i> Корисна інформація</h3>
+        
+        <div class="modal-body">
+            <ul class="info-list">
+                <li>
+                    <i class="fas fa-pray"></i> 
+                    <span><strong>Сповідь:</strong> Кожну суботу та неділю перед Літургією.</span>
+                </li>
+                <li>
+                    <i class="fas fa-dove"></i> 
+                    <span><strong>Хрещення та Вінчання:</strong> За попередньою домовленістю з отцем.</span>
+                </li>
+                <li>
+                    <i class="fas fa-users"></i> 
+                    <span><strong>СУМ при парафії:</strong> Кожну 1-шу та 3-тю неділю.</span>
+                </li>
+            </ul>
+
+            <div class="modal-note">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Розклад Богослужінь на великі свята буде оновлено найближчим часом після узгодження.</p>
+            </div>
+        </div>
+    </div>
+</div>
 </section>
 
 <div id="info-modal" class="custom-modal">
