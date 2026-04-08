@@ -273,19 +273,22 @@ ul { list-style: none; }
 }
 .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
 
-/* ОНОВЛЕНО: Відображення картинок (щоб не обрізались) */
 .card-img-container {
-    height: 240px; width: 100%; display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, #f8faff 0%, #eef4fc 100%); 
-    position: relative; overflow: hidden;
-    border-bottom: 1px solid #e1e8f0;
+    width: 100%;
+    height: 220px; /* Це фіксована висота. Можеш змінити на 200px або 240px, якщо хочеш вищі чи нижчі картки */
+    overflow: hidden;
+    position: relative;
+    border-radius: var(--radius) var(--radius) 0 0; /* Заокруглення лише верхніх кутів */
+    background-color: var(--bg-light); /* Світлий фон-заглушка, поки картинка вантажиться */
 }
-.card-photo { 
-    width: 100%; height: 100%; 
-    object-fit: contain; /* Картинка повністю влазить, не обрізається */
-    padding: 0px; 
-    transition: transform 0.5s ease;
-    z-index: 1; position: relative;
+
+.card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Головний секрет: картинка заповнює блок без спотворень */
+    object-position: center; /* Центрує найважливішу частину фото */
+    display: block;
+    transition: var(--transition); /* Підтримка плавної анімації сайту */
 }
 .card:hover .card-photo { transform: scale(1.05); }
 
