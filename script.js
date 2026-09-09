@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return new Date(dateString).toLocaleDateString('uk-UA', options);
     }
 
+    // Автоматичне форматування тексту з таблиці (абзаци, переноси, жирний шрифт)
+    function formatNewsText(text) {
+        if (!text) return '';
+        let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        const paragraphs = formatted.split(/\n\s*\n/);
+        return paragraphs.map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('');
+    }
+
     function createCardHTML(item, index) {
         let imgContainerHTML = '';
         if (item.image_url && item.image_url.trim() !== "") {
@@ -33,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-content">
                     <span class="news-date"><i class="far fa-calendar-alt"></i> ${formatDate(item.date)}</span>
                     <h3>${item.title}</h3>
-                    <p>${item.short_text}</p>
+                    <div class="news-preview-text">${formatNewsText(item.short_text)}</div>
                     <button class="read-more btn-dynamic-modal">Читати далі <i class="fas fa-arrow-right"></i></button>
                 </div>
             </article>
@@ -86,9 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const mContent = document.getElementById('dynamic-news-content');
 
                     mTitle.textContent = item.title;
-                    mDate.textContent = formatDate(item.date);
+                    mDate.innerHTML = `<i class="far fa-calendar-alt"></i> ${formatDate(item.date)}`;
                     
-                    let fullHtml = item.full_text || "";
+                    let fullHtml = formatNewsText(item.full_text) || "";
                     if (item.gallery_urls && item.gallery_urls.trim() !== "") {
                         const urls = item.gallery_urls.split(',').map(u => u.trim()).filter(u => u);
                         if (urls.length > 0) {
@@ -137,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- ОНОВЛЕНА ЛОГІКА ВЕРТИКАЛЬНОГО ПОВЗУНКА ЧАСУ ---
     function initTimelineSlider(newsItems) {
         const sliderContainer = document.getElementById('archive-timeline-container');
         const slider = document.getElementById('archive-date-slider');
@@ -171,11 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(targetData.date) {
                     dateLabel.innerText = formatDate(targetData.date);
                     
-                    // Показуємо лейбл дати
                     dateLabel.style.opacity = '1';
                     dateLabel.style.transform = 'translateX(0)';
                     
-                    // Ховаємо через 1.5 сек
                     clearTimeout(window.sliderDateTimeout);
                     window.sliderDateTimeout = setTimeout(() => {
                         dateLabel.style.opacity = '0';
@@ -186,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- CSV PARSER ---
     function parseCSV(text) {
         const rows = [];
         let currentRow = [];
@@ -342,7 +346,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- ОНОВЛЕНИЙ ЛАЙТБОКС (СТИЛЬНИЙ ALBUM) ---
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
@@ -361,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', function(e) {
         if (e.target.classList.contains('gallery-item')) {
             e.stopPropagation();
-            lightbox.style.display = 'flex'; // ТЕПЕР FLEX Замість BLOCK
+            lightbox.style.display = 'flex'; 
             
             const parentGallery = e.target.closest('.gallery-grid, .modal-gallery');
             if (parentGallery) {
@@ -545,23 +548,19 @@ window.addEventListener('load', function() {
                     googleCalendarApiKey: 'AIzaSyBf4_AA8sh5kA1tYMg-KhtyBD8byfH3-Z4',
                     events: 'ukk.augsburg@gmail.com',
                     eventClick: function(info) {
-                        info.jsEvent.preventDefault(); // Запобігаємо переходу на нову вкладку
+                        info.jsEvent.preventDefault(); 
                         
-                        // Заповнення модального вікна даними
                         document.getElementById('event-title').textContent = info.event.title;
                         
-                        // Форматуємо дату і час
                         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' };
                         let formattedTime = info.event.start.toLocaleDateString('uk-UA', dateOptions);
                         
-                        // Якщо подія на весь день
                         if (info.event.allDay) {
                              formattedTime = info.event.start.toLocaleDateString('uk-UA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + " (Цілий день)";
                         }
                         
                         document.getElementById('event-time').textContent = formattedTime;
                         
-                        // Перевірка наявності місця
                         if(info.event.extendedProps.location) {
                             document.getElementById('event-location').textContent = info.event.extendedProps.location;
                             document.getElementById('event-location-container').style.display = 'block';
@@ -569,7 +568,6 @@ window.addEventListener('load', function() {
                             document.getElementById('event-location-container').style.display = 'none';
                         }
 
-                        // Перевірка наявності опису
                         if(info.event.extendedProps.description) {
                             document.getElementById('event-desc').innerHTML = info.event.extendedProps.description;
                             document.getElementById('event-desc-container').style.display = 'block';
@@ -577,7 +575,6 @@ window.addEventListener('load', function() {
                             document.getElementById('event-desc-container').style.display = 'none';
                         }
 
-                        // Відкриваємо вікно з деталями
                         modalEventDetails.style.display = 'block';
                     }
                 });
@@ -585,23 +582,19 @@ window.addEventListener('load', function() {
                 churchCalendar.render();
                 calendarInitialized = true;
             } else {
-                // Якщо вже ініціалізовано, перезапускаємо рендер для правильної ширини
                 setTimeout(() => churchCalendar.render(), 50);
             }
         });
 
-        // Закриття вікна календаря
         closeCalendarView.addEventListener('click', () => {
             modalCalendarView.style.display = 'none';
             document.body.style.overflow = 'auto';
         });
 
-        // Закриття вікна деталей події
         closeEventDetails.addEventListener('click', () => {
             modalEventDetails.style.display = 'none';
         });
 
-        // Закриття при кліку поза вікном
         window.addEventListener('click', (e) => {
             if (e.target === modalCalendarView) {
                 modalCalendarView.style.display = 'none';
